@@ -82,6 +82,7 @@
 function mpm(varargin)
 
 
+
 %% ===============================================
 p=struct();
 %  table-PROC1, [ tag  default-selected   callingfile   message]
@@ -112,9 +113,10 @@ p.hmrimodels={'f_runMRM_mode1.m'};
 % ==============================================
 %%   add local mpm_functions_path 
 % ===============================================
-mpm_path=strfind(path,fileparts(which('mpm.m')));
-if isempty(mpm_path)
-    addpath(fileparts(which('mpm.m')));
+ix_mpm_path=strfind(path,fileparts(which('mpm.m')));
+mpm_path=fileparts(which('mpm.m'));
+if isempty(ix_mpm_path)
+    addpath(genpath(mpm_path));
 end
 
 %% ===============================================
