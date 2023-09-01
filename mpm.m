@@ -1,5 +1,5 @@
 
-% #wg    mpmgui    
+% #wg    mpm    
 % 
 % 
 % #ko [setup]: 
@@ -42,7 +42,7 @@
 % For hMRI-TBX-steps, the user is not dependent on the ANTx-toolbox
 % If you use the ANTX-TBX, please select the animals from ANTx-main GUI
 % If you only want to execute the steps from hMRI-TBX without ANTx-TBX please select the 
-% animal folders via "mpmgui" via button [select animals] 
+% animal folders via "mpm" via button [select animals] 
 % 
 % 
 
@@ -79,7 +79,7 @@
 % % transform images to standard-space
 % f_transform2SS();
 
-function mpmgui(varargin)
+function mpm(varargin)
 
 
 %% ===============================================
@@ -112,9 +112,9 @@ p.hmrimodels={'f_runMRM_mode1.m'};
 % ==============================================
 %%   add local mpm_functions_path 
 % ===============================================
-mpm_path=strfind(path,fileparts(which('mpmgui.m')));
+mpm_path=strfind(path,fileparts(which('mpm.m')));
 if isempty(mpm_path)
-    addpath(fileparts(which('mpmgui.m')));
+    addpath(fileparts(which('mpm.m')));
 end
 
 %% ===============================================
@@ -147,9 +147,9 @@ end
 
 function makefig(p)
 
-delete(findobj(0,'tag','mpmgui'));
+delete(findobj(0,'tag','mpm'));
 figure
-set(gcf,'menubar','none','tag','mpmgui','name',['mpm [' mfilename '.m]' ],'NumberTitle','off','color','w','units','norm');
+set(gcf,'menubar','none','tag','mpm','name',['mpm [' mfilename '.m]' ],'NumberTitle','off','color','w','units','norm');
 set(gcf,'position',[ 0.4049    0.2633    0.2632    0.4667]);
 
 
@@ -433,6 +433,48 @@ set(hb,'string','status: idle','tag','tx_status','foregroundcolor',[0 0 1],'back
 
 
 % ==============================================
+%%  version
+% ===============================================
+%====INDICATE LAST UPDATE-DATE ========================
+% vstring=strsplit(help('antver'),char(10))';
+% idate=max(regexpi2(vstring,' \w\w\w 20\d\d (\d\d'));
+% dateLU=['ANTx2  vers.' char(regexprep(vstring(idate), {' (.*'  '  #\w\w ' },{''}))];
+dateLU=mpmcb('version');
+% dateLU=['v'  datestr(now)];
+h = uicontrol('style','pushbutton','units','normalized','position',[.94 .65 .08 .05],'tag','txtversion',...
+    'string',dateLU,'fontsize',5,'fontweight','normal',...
+    'tooltip',['date of last update' char(10) '..click to see last updates [mpmver.m]']);
+% set(h,'position',[.2 .65 .08 .02],'fontsize',6,'backgroundcolor','w','foregroundcolor',[.7 .7 .7])
+set(h,'position',[0.62 0.96786 0.3 0.027],'fontsize',7,'backgroundcolor','w','foregroundcolor',[0.9294    0.6941    0.1255],...
+    'horizontalalignment','left','callback',{@callmpmver});
+
+%% ===============================================
+% update-pushbutton :get update ...no questions ask
+%% ===============================================
+h = uicontrol('style','pushbutton','units','normalized','position',[.94 .65 .04 .05],...
+    'tag','update_btn',...
+    'string','','fontsize',13,  'callback',{@updateTBXnow},...
+    'tooltip', ['<html><b>download latest updates from Github</b><br>forced updated, no user-input<br>'...
+    '<font color="green"> see contextmenu for more options'],...
+    'backgroundcolor','w');
+set(h,'position',[0.92068 0.96786 0.036939 0.033331]);
+set(h,'units','pixels');
+posi=get(h,'position');
+set(h,'position',[posi(1:2) 14 14]);
+set(h,'units','norm');
+icon=fullfile(fullfile(fileparts(which('mpm.m')),'misc'),'Download_16.png');
+[e map]=imread(icon)  ;
+set(h,'cdata',e);
+
+cmm=uicontextmenu;
+uimenu('Parent',cmm, 'Label','check update-status',             'callback', {@updateTBX_context,'info' });
+uimenu('Parent',cmm, 'Label','force update',                    'callback', {@updateTBX_context,'forceUpdate' } ,'ForegroundColor',[1 0 1],'separator','on');
+uimenu('Parent',cmm, 'Label','show last local changes (files)', 'callback', {@updateTBX_context,'filechanges_local' } ,'ForegroundColor',[.5 .5 .5],'separator','on');
+uimenu('Parent',cmm, 'Label','help: update from GitHUB-repo' ,  'callback', {@updateTBX_context,'help' } ,'ForegroundColor',[0 .5 0],'separator','on');
+set(h,'UIContextMenu',cmm);
+
+
+% ==============================================
 %%   add userdata
 % ===============================================
 
@@ -609,13 +651,13 @@ end
 
 
 if is_mdirsOK==0
-    disp(['no animals selected..(selection via mpmgui or ANTX-mainGUI  )']);
+    disp(['no animals selected..(selection via mpm or ANTX-mainGUI  )']);
     return;
 end
     
     
 
-hf=findobj(findobj(0,'tag','mpmgui'),'tag','tx_status');
+hf=findobj(findobj(0,'tag','mpm'),'tag','tx_status');
 set(hf,'string','busy','tag','tx_status','foregroundcolor',[1 0 1],'backgroundcolor',[1 .84 0] );
 drawnow;
 
@@ -649,5 +691,83 @@ if strcmp(task,'estimPreorient')
 end
 
 
+function callmpmver(e,e2)
+mpmver;
 
+
+
+% ==============================================
+%%   update tbx via button-contextMENU, no user-questions
+% ===============================================
+function updateTBX_context(e,e2,task)
+
+
+currpath=fileparts(which('mpm.m'));
+cname   =getenv('COMPUTERNAME');
+msg_myMachine='The source machine can''t be updated from Github';
+if strcmp(task,'help')
+    help updatempm
+elseif strcmp(task,'info')
+    if strcmp(cname,'STEFANKOCH06C0')==1 && strcmp(currpath,'F:\mpm')
+        disp(msg_myMachine);  %my computer---not allowed
+    else
+        updatempm('info');
+    end
+elseif strcmp(task,'forceUpdate')
+    if strcmp(cname,'STEFANKOCH06C0')==1 && strcmp(currpath,'F:\mpm')
+        disp(msg_myMachine);  %my computer---not allowed
+    else
+        updatempm(3);
+    end
+elseif strcmp(task,'filechanges_local')
+    if strcmp(cname,'STEFANKOCH06C0')==1 && strcmp(currpath,'F:\mpm')
+        disp(msg_myMachine);  %my computer---not allowed
+    else
+        updatempm('changes');
+    end
+end
+% ==============================================
+%%   update-btn
+% ===============================================
+
+function updateTBXnow(e,e2)
+
+
+currpath=fileparts(which('mpm.m'));
+cname=getenv('COMPUTERNAME');
+if  strcmp(cname,'STEFANKOCH06C0')==1 && strcmp(currpath,'F:\mpm');
+    disp('The source machine can''t be updated from Github');  %my computer---not allowed
+else
+    thispa=pwd;
+    go2pa =fileparts(which('mpmver.m'));
+    cd(go2pa);
+    try
+        w=git('log -p -1');                    % obtain DATE OF local repo
+        w=strsplit(w,char(10))';
+        date1=w(min(regexpi2(w,'Date: ')));
+    catch
+        cd(thispa);
+    end
+    
+    updatempm(2);                              % UPDAETE
+    mpmtcb('versionupdate');
+    
+    try
+        w=git('log -p -1');                  % obtain DATE OF local repo
+        w=strsplit(w,char(10))';
+        date2=w(min(regexpi2(w,'Date: ')));
+    catch
+        cd(thispa);
+    end
+    
+    cd(thispa);
+    if strcmp(date1,date2)~=1   %COMPARE date1 & date2 ...if changes--->reload tbx
+        q=updatempm('changes');
+        if ~isempty(find(strcmp(q,'mpm.m')));
+            disp(' mpm-main gui was modified: reloading GUI');
+            %antcb('reload');
+            mpm;
+        end
+    end
+end
 
