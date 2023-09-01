@@ -758,7 +758,7 @@ else
     end
     
     updatempm(2);                              % UPDAETE
-    mpmtcb('versionupdate');
+    mpmcb('versionupdate');
     
     try
         w=git('log -p -1');                  % obtain DATE OF local repo
