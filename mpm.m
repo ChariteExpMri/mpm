@@ -111,7 +111,7 @@ p.t2=t2;
 
 p.hmrimodels={'f_runMRM_mode1.m'};
 % ==============================================
-%%   add local mpm_functions_path 
+%%   add local mpm_functions_path
 % ===============================================
 mpm_path=fileparts(which('mpm.m'));
 ix_mpm_path=strfind(path,mpm_path);
@@ -120,9 +120,9 @@ if isempty(ix_mpm_path);     addpath((mpm_path));  end
 subdirs={'misc'}; %add subdirs
 for i=1:length(subdirs)
     this_subdir=fullfile(mpm_path,subdirs{i});
-   if isempty(strfind(path,this_subdir))
-       addpath(genpath(mpm_path));
-   end
+    if isempty(strfind(path,this_subdir))
+        addpath(genpath(this_subdir));
+    end
 end
 
 %% ===============================================
