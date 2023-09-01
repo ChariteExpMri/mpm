@@ -1,4 +1,16 @@
+
+% install MPM-tbx via matlab
+% when reinstalling please delete the previous mpm-folder
+% If this fails, path are set which might restrict deletion of mpm-folder.
+%__ In such a case execute
+% rmpath(genpath(fileparts(which('mpm.m'))))
+%___ than delete the mpm-folder:
+% rmdir('mpm','s')
+%__run file
+% install_mpm
+
 function install_mpm
+
 
 disp('** install mpm');
 git clone https://github.com/ChariteExpMri/mpm.git
