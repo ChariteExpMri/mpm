@@ -2,8 +2,8 @@
 # MPM
 wrapper functions to run hMRI-toolbox on rodent data
 For hMRI-toolbox see 
-https://www.cbs.mpg.de/departments/neurophysics/software/hmri-toolbox
-https://github.com/hMRI-group/hMRI-toolbox
+- https://www.cbs.mpg.de/departments/neurophysics/software/hmri-toolbox
+- https://github.com/hMRI-group/hMRI-toolbox
 
 ## UPDATES ##
 &#x1F535; Inspect [**last changes/updates**](mpmver.md).<br>
