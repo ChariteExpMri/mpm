@@ -43,6 +43,7 @@ ADVANTAGE: updates can be made via toolbox
 
 
 
+## Tutorial ##
+For a tutorial see: 
+https://raw.githubusercontent.com/ChariteExpMri/mpm/master/tutorial_mpm.docx
 
-
-## IMPORTANT

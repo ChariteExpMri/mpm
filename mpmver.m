@@ -14,9 +14,9 @@
 % update-button/version-update added
 % #ba 01 Sep 2023 (15:07:10)
 % #k [mpmlink.m] #n added: set path of mpm-tbx
+% #ba 05 Sep 2023 (00:15:57)
+% added tutorial "tutorial_mpm.docx"
 % 
-% 
-
 % 
 
 %----- EOF
