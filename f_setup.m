@@ -4,7 +4,7 @@ function f_setup
 
 %% ===============================================
 
-pas=fullfile(fileparts(which('mpmgui.m')),'resources');
+pas=fullfile(fileparts(which('mpm.m')),'resources');
 p.path_resources=pas;
 p.files2copy={...
     'mpm_NIFTIparameters.xlsx'    'copy NIFTI-parameter file (Excelfile)'   1  'copy_NIFTIparam'  ...
@@ -315,7 +315,7 @@ end
 function changeFile(pa, fi)
 
 %% ===============================================
-respa=fullfile(fileparts(which('mpmgui')),'resources');
+respa=fullfile(fileparts(which('mpm')),'resources');
 if strcmp(fi, 'hmri_local_defaults_mouse.m')
     f1=fullfile(pa,fi);
     a=preadfile(f1); a=a.all;
