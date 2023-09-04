@@ -25,16 +25,15 @@ ADVANTAGE: updates can be made via toolbox
 
 ## MANDATORY PACKAGES ##
 <ins>hMRI-toolbox</ins>
-The hMRI-toolbox is needed.  Here, hMRI-toolbox-0.2.4 was tesed: 
-https://github.com/hMRI-group/hMRI-toolbox/releases
+- The hMRI-toolbox is needed.  
+- Please note that the hMRI-toolbox-0.2.4 was tesed --> https://github.com/hMRI-group/hMRI-toolbox/releases/tag/v0.2.4
 
 <ins>ANTx2</ins>
-For Preprocessing ANTx2 is mandatory (see tutorial)
-https://github.com/ChariteExpMri/antx2
+- For Preprocessing ANTx2 is mandatory (see tutorial 'tutorial_mpm.docx')
+- https://github.com/ChariteExpMri/antx2
 
 ## Tutorial ##
-For a tutorial see: 
-https://raw.githubusercontent.com/ChariteExpMri/mpm/master/tutorial_mpm.docx
+- For a tutorial see: https://raw.githubusercontent.com/ChariteExpMri/mpm/master/tutorial_mpm.docx
 
 
 
