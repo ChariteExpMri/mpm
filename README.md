@@ -1,23 +1,12 @@
 
-# mpm
-wrapper functions to run hMRI-toolbox on rodent data
-
-For hMRI-toolbox see https://www.cbs.mpg.de/departments/neurophysics/software/hmri-toolbox
-
-..infos...
-
-
-
-:rocket: # TEST-MODE  ...the current REPO does not WORK!!!
-
-
 # MPM
-
+wrapper functions to run hMRI-toolbox on rodent data
+For hMRI-toolbox see 
+https://www.cbs.mpg.de/departments/neurophysics/software/hmri-toolbox
+https://github.com/hMRI-group/hMRI-toolbox
 
 ## UPDATES ##
 &#x1F535; Inspect [**last changes/updates**](mpmver.md).<br>
-
-
 
 ## Installation ##
 ### Installation via GITHUB using GIT
@@ -34,16 +23,21 @@ ADVANTAGE: updates can be made via toolbox
 - set MATLAB's current working dir to the location of "mpm" 
 - type 'mpm'
 
+## MANDATORY PACKAGES ##
+<ins>hMRI-toolbox</ins>
+The hMRI-toolbox is needed.  Here, hMRI-toolbox-0.2.4 was tesed: 
+https://github.com/hMRI-group/hMRI-toolbox/releases
 
-
--download "install_mpm.m". 
--save "install_mpm.m" at the location where mpm should be installed.
--in matlab run "install_mpm.m"
-  
-
-
+<ins>ANTx2</ins>
+For Preprocessing ANTx2 is mandatory (see tutorial)
+https://github.com/ChariteExpMri/antx2
 
 ## Tutorial ##
 For a tutorial see: 
 https://raw.githubusercontent.com/ChariteExpMri/mpm/master/tutorial_mpm.docx
+
+
+
+
+
 
