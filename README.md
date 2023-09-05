@@ -26,7 +26,7 @@ ADVANTAGE: updates can be made via toolbox
 ## MANDATORY PACKAGES ##
 <ins>hMRI-toolbox</ins>
 - The hMRI-toolbox is needed.  
-- Please note that only the version 0.2.4  was tested (hMRI-toolbox-0.2.4) --> https://github.com/hMRI-group/hMRI-toolbox/releases/tag/v0.2.4
+- Please note that only version 0.2.4  was tested (hMRI-toolbox-0.2.4) --> https://github.com/hMRI-group/hMRI-toolbox/releases/tag/v0.2.4
 
 <ins>ANTx2</ins>
 - For Preprocessing ANTx2 is mandatory (see tutorial 'tutorial_mpm.docx' in this repo)
