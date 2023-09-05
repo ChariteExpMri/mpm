@@ -10,7 +10,6 @@
 %======= CHANGES ================================
 % #ba 01 Sep 2023 (12:53:02)
 % [+] pushed [mpm] to github
-% THIS TBX IS NOT WORKNG CURRENTLY
 % update-button/version-update added
 % #ba 01 Sep 2023 (15:07:10)
 % #k [mpmlink.m] #n added: set path of mpm-tbx
