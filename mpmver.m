@@ -15,8 +15,8 @@
 % #k [mpmlink.m] #n added: set path of mpm-tbx
 % #ba 05 Sep 2023 (00:15:57)
 % added tutorial "tutorial_mpm.docx"
-% % #ba 05 Sep 2023 (16:18:06)
-% tested on win10 server
+% #ba 05 Sep 2023 (16:18:06)
+% tested mpm on win10 server
 % 
 % 
 % 
