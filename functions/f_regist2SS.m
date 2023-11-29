@@ -37,11 +37,15 @@ end
 %%   
 % ===============================================
 
-
+if isfield(mpm, 'mpm.useParallelproc')
+    isparfor=mpm.useParallelproc;
+else
+    isparfor=0;
+end
 
 
 % pas=antcb('getsubjects');
-isparfor=1;
+% isparfor=1;
 if length(mdirs)==1
     isparfor=0;
 end

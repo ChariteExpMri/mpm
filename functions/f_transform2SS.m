@@ -64,14 +64,27 @@ for i=1:length(files)
     %fis=doelastix(1, [] ,files{i},interp,'local');
     interpvec(i,1)=interp;
 end
+
+if isfield(mpm, 'mpm.useParallelproc')
+    isparfor=mpm.useParallelproc;
+else
+    isparfor=0;
+end
+
 %% ===============================================
 cprintf('*[0 0 1]',[ 'transform files to standard-space: '  '\n'] );
 interpValues=unique(interpvec);
 for i=1:length(interpValues)
     thisInterp    =interpValues(i);
     files2=files(find(interpvec==thisInterp));
-    fis=doelastix(1, [] ,files2,thisInterp,'local');
+    if isparfor==0
+        fis=doelastix(1, [] ,files2,thisInterp,'local');
+    else
+        fis=doelastix(1, [] ,files2,thisInterp,'local',struct('isparallel',isparfor) );
+    end
 end
+
+
 
 
 %% ===============================================
