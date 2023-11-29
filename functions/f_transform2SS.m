@@ -65,7 +65,7 @@ for i=1:length(files)
     interpvec(i,1)=interp;
 end
 
-if isfield(mpm, 'mpm.useParallelproc')
+if isfield(mpm, 'useParallelproc')
     isparfor=mpm.useParallelproc;
 else
     isparfor=0;

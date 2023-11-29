@@ -37,7 +37,7 @@ end
 %%   
 % ===============================================
 
-if isfield(mpm, 'mpm.useParallelproc')
+if isfield(mpm, 'useParallelproc')
     isparfor=mpm.useParallelproc;
 else
     isparfor=0;
