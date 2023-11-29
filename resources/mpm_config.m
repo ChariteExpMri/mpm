@@ -28,6 +28,6 @@ mpm.PD_normalizeFunction  =@mean                                       ;% functi
 mpm.PD_normalizeOutputName='PD_normalized.nii'                         ;% resulting outputName
 
 
-mpm.useParalllelproc=0  ; %use parallelprocessing
+mpm.useParallelproc=0  ; %use parallelprocessing
 
 
