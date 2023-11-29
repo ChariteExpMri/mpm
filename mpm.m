@@ -45,6 +45,10 @@
 % animal folders via "mpm" via button [select animals] 
 % 
 % 
+% ___[optional inputs]_________________
+% mpm('storegui'); %stores GUI-control settings temporally in mpm-global var
+% mpm('recreate'); %sets previously stored GUI-control settings (i.e. selection of radios etc) 
+
 
 
 
@@ -81,7 +85,10 @@
 
 function mpm(varargin)
 
-
+if nargin>0
+   procCMDprewin(varargin)
+   return
+end
 
 %% ===============================================
 p=struct();
@@ -136,9 +143,82 @@ hide_mdirs();
 makeMenu();
 % which('ant.m')
 
+if nargin>0
+   procCMDpostwin(varargin)
+end
+
+% ==============================================
+%%   proc PREwin
+% ===============================================
+function procCMDprewin (varargin)
+if strcmp(varargin{1},'storegui')
+    %% ===============================================
+    global mpm
+    if isempty(mpm);return; end
+    hf=findobj(0,'tag','mpm');
+    if isempty(hf);return; end
+
+    ps={};
+    ht=get(findobj(hf,'style','radio'),'tag');
+    if ischar(ht); ht=cellstr(ht); end
+    for i=1:length(ht)
+        val=get(findobj(hf,'tag',ht{i}),'value');
+        ps(end+1,:) ={'radio' ht{i}  val} ;
+    end
+    ht=get(findobj(hf,'style','checkbox'),'tag');
+    if ischar(ht); ht=cellstr(ht); end
+    for i=1:length(ht)
+        val=get(findobj(hf,'tag',ht{i}),'value');
+        ps(end+1,:) ={'checkbox' ht{i}  val} ;
+    end
+    ht=get(findobj(hf,'style','popupmenu'),'tag');
+    if ischar(ht); ht=cellstr(ht); end
+    for i=1:length(ht)
+        val=get(findobj(hf,'tag',ht{i}),'value');
+        ps(end+1,:) ={'popupmenu' ht{i}  val} ;
+    end
+    mpm.gui_setting=ps;
+    %% ===============================================
+    
+end
+if strcmp(varargin{1},'recreate')
+    
+    hf=findobj(0,'tag','mpm');
+    if isempty(hf);
+       % mpm;
+        feval('mpm');
+    end
+    global mpm
+    if isempty(mpm);return; end
+    if isfield(mpm,'gui_setting')
+        hf=findobj(0,'tag','mpm');
+        ps=mpm.gui_setting;
+        for i=1:size(ps,1)
+            set(findobj(hf,'tag',ps{i,2}),'value',ps{i,3})
+            
+        end
+    end
+end
+
+
+
+% ==============================================
+%%   proc POSTwin
+% ===============================================
+function procCMDpostwin(varargin)
+
+
+    
+
+
+
+
+
+
 % ==============================================
 %%   
 % ===============================================
+
 
 function hide_mdirs()
 global an
@@ -667,16 +747,23 @@ if is_mdirsOK==0
     return;
 end
     
-    
-
-hf=findobj(findobj(0,'tag','mpm'),'tag','tx_status');
-set(hf,'string','busy','tag','tx_status','foregroundcolor',[1 0 1],'backgroundcolor',[1 .84 0] );
+hf=findobj(0,'tag','mpm');
+ht=findobj(hf,'tag','tx_status');
+set(ht,'string','busy','tag','tx_status','foregroundcolor',[1 0 1],'backgroundcolor',[1 .84 0] );
 drawnow;
+mpm('storegui');
 
 % funclist=t2(:,3);
 % clc
 for i=1:size(funclist,1)
-    set(hf,'string',['busy ' funclist{i} ],'tag','tx_status','foregroundcolor',[1 0 1],'backgroundcolor',[1 .84 0] );
+    hf=findobj(0,'tag','mpm');
+    if isempty(hf)
+        mpm('recreate'); drawnow;
+        hf=findobj(0,'tag','mpm');
+        ht=findobj(hf,'tag','tx_status');
+    end
+    
+    set(ht,'string',['busy ' funclist{i} ],'tag','tx_status','foregroundcolor',[1 0 1],'backgroundcolor',[1 .84 0] );
     drawnow;
     if isempty(mdirs)
         feval(funclist{i}); %with ANTX-tbx
@@ -684,14 +771,31 @@ for i=1:size(funclist,1)
         feval(funclist{i},mdirs); %with ANTX-tbx
     end
     
+    if strcmp(funclist{i},'f_regist2SS') %close SPM-windows
+        closeSPM();
+    end
+    
 end
 
-set(hf,'string','status: idle','tag','tx_status','foregroundcolor',[0 0 1],'backgroundcolor',repmat(1,[1 3]) );
+hf=findobj(0,'tag','mpm');
+if isempty(hf)
+    mpm('recreate'); drawnow;
+    hf=findobj(0,'tag','mpm');
+    ht=findobj(hf,'tag','tx_status');
+end
+
+set(ht,'string','status: idle','tag','tx_status','foregroundcolor',[0 0 1],'backgroundcolor',repmat(1,[1 3]) );
 drawnow;
 
 
 
 
+function closeSPM
+%% ======[close spm-windows]======================
+close(findobj(0,'tag','Graphics'));
+close(findobj(0,'tag','Interactive'));
+hspm=findobj(0,'tag','Menu');set(hspm,'CloseRequestFcn','closereq'); close(hspm);
+%% ===============================================
 
 
 function cb_menu(e,e2,task)
