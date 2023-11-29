@@ -18,7 +18,7 @@
 % #ba 05 Sep 2023 (16:18:06)
 % tested mpm on win10 server
 % 
-% % #ba 29 Nov 2023 (15:52:10)
+% #ba 29 Nov 2023 (15:52:10)
 % fixed bugs: SPM-window/handling
 % 
 

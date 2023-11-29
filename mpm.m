@@ -802,7 +802,8 @@ function cb_menu(e,e2,task)
 
 
 if strcmp(task,'estimPreorient')
-    f_estimPreorient();
+%     f_estimPreorient();
+    f_estimPreorient([],'sel');
     
 end
 
