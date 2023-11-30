@@ -217,6 +217,13 @@ if c.use_SPMextern==1
     try; antlink(0); end
     addpath(mpm.SPM_path);
 end
+
+if exist(mpm.MPM_path)~=7 || exist(fullfile(mpm.MPM_path,'hmri_run_create.m'))~=2
+   posttask(mpm,c);
+    error('Path to "hMRI-toolbox-0.2.4" not specified...please specify path via variable "MPM_path" in "mpm_config"-file');
+end
+
+
 addpath(mpm.MPM_path);
 
 % spm('defaults', 'FMRI');
