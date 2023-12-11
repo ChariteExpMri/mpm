@@ -1,6 +1,5 @@
 
-% #wg    mpm    
-% 
+% #wg    mpm for rodents    
 % 
 % #ko [setup]: 
 % #b Copy necessary parameter files to user-defined destination folder (mpm-folder)
