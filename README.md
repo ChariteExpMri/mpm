@@ -1,5 +1,5 @@
 
-# MPM
+# MPM for rodents
 Wrapper functions to run the hMRI-toolbox on rodent data (rat/mice)
 The hMRI-toolbox is used for quantitative magnetic resonance imaging (qMRI).
 For hMRI-toolbox see 
