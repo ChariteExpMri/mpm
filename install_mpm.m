@@ -13,7 +13,7 @@ function install_mpm
 
 
 disp('** install mpm');
-git clone https://github.com/ChariteExpMri/mpm.git
+git clone https://github.com/ChariteExpMri/mpm_rodent.git
 disp('done');
 
 end
