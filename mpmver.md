@@ -1,13 +1,17 @@
 ## **mpm Modifications**
- &#x1F535; last modification:   29 Nov 2023 (15:52:10)  
+ &#x1F535; last modification:   13 Dec 2023 (11:19:05)  
     
  &#8658; Respository: <a href= "https://github.com/ChariteExpMri/mpm">https://github.com/ChariteExpMri/mpm</a>  
     
     
     
 ------------------  
+  &#x1F535;   <ins>**13 Dec 2023 (11:19:05)**</ins>  
+  enabled: process all steps without graphical user-interface   
+<!---->
   &#x1F535;   <ins>**29 Nov 2023 (15:52:10)**</ins>  
   fixed bugs: SPM-window/handling  
+    
 <!---->
   &#x1F535;   <ins>**05 Sep 2023 (16:18:06)**</ins>  
   tested mpm on win10 server  

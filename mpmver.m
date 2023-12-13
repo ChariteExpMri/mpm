@@ -21,6 +21,9 @@
 % #ba 29 Nov 2023 (15:52:10)
 % fixed bugs: SPM-window/handling
 % 
+% #ba 13 Dec 2023 (11:19:05)
+% enabled: process all steps without graphical user-interface 
+%
 
 %----- EOF
 % make MPMVER.md for GIT: mpmver('makempmver')
