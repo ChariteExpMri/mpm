@@ -755,7 +755,9 @@ function makeMenu()
 f = uimenu('Label','Preproc');
     uimenu(f,'Label','estimate pre-orientation t2w to T1/PD/MT','callback',{@cb_menu,'estimPreorient'});
  
-
+f = uimenu('Label','Info');
+    uimenu(f,'Label','<html><font color="blue">visit mpm-for-rodents (github)','callback',{@cb_menu,'visit_mpm-for-rodents_github'});
+    uimenu(f,'Label','<html><font color="blue">visit ANTx2 (github)'          ,'callback',{@cb_menu,'visit_antx_github'});
 
 % ==============================================
 %%   select all (preproc)
@@ -1064,7 +1066,30 @@ function cb_menu(e,e2,task)
 if strcmp(task,'estimPreorient')
 %     f_estimPreorient();
     f_estimPreorient([],'sel');
+else strcmp(task,'visit_mpm-for-rodents_github') || strcmp(task,'visit_antx_github'); 
+    if strcmp(task,'visit_mpm-for-rodents_github')
+        github='https://github.com/ChariteExpMri/mpm_rodent';
+    elseif strcmp(task,'visit_antx_github')
+        github='https://github.com/ChariteExpMri/antx2';
+    end
     
+     if ismac
+        system(['open ' github]);
+    elseif isunix
+        % system(['xdg-open ' github]);
+        
+        [r1 r2]= system(['xdg-open ' github]);
+        if  ~isempty(strfind(r2,'no method available'))
+            [r1 r2]= system(['who']);
+            ulist=strsplit(r2,char(10))';
+            lastuser=strtok(char(ulist(1)),' ');
+            [r1 r2]=system(['sudo -u ' lastuser ' xdg-open ' github '&']);
+        end
+        
+    elseif ispc
+        %system(['start ' github]);
+        web(github,'-browser'); 
+    end
 end
 
 
