@@ -51,7 +51,7 @@ preorient = mpm.t2w_preorient;
 mov='t2w.nii';%g.files{strcmp(g.files(:,1),'t2w'),2};
 
 if      ~isempty(find(strcmp(t(:,1),'T1')==1))
-    fix='XXXX1.nii' ;
+    fix='T1.nii' ;
 elseif  ~isempty(find(strcmp(t(:,1),'MT')==1))
     fix='MT.nii' ;
 elseif  ~isempty(find(strcmp(t(:,1),'PD')==1))
