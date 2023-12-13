@@ -73,11 +73,32 @@ for i=1:length(tags)
         d{ix,ic}=ms;
     end
 end
-%% ===========write ====================================
-[~,sheets]=xlsfinfo(c.xlsfile);
+%% ===========write EXCELFILE ====================================
+isExcel=1;
+try
+    e=matlab.io.internal.getExcelInstance;
+catch
+    isExcel=0;
+end
 
 f2=c.xlsfile;
-pwrite2excel(f2,{1 sheets{1}},c.ha,[],d);
+
+if isExcel==1
+    [~,sheets]=xlsfinfo(c.xlsfile);
+    pwrite2excel(f2,{1 sheets{1}},c.ha,[],d);
+else
+    %% ===============================================
+    ht=c.ha;
+    ht=regexprep(ht,{'(.*\)' ,'\s+' },'');
+    t=cell2table(d,'VariableNames',ht);
+    writetable(t,f2,'Sheet',1);
+end
+
+%% ===============================================
+
+
+
+
 
 showinfo2('VISU-parameters added: ' ,f2);
 
