@@ -1,6 +1,13 @@
 
 %setup: copy necessary stuff
-function f_setup
+% 
+% no-GUi option to copy necessary files
+%f_setup('ini')
+
+function f_setup(arg)
+
+
+
 
 %% ===============================================
 
@@ -23,6 +30,16 @@ p.files2copy={...
     ...
     };
 
+
+if exist('arg')==1
+    if ischar(arg)==1 && strcmp(arg,'ini')
+        
+        p.isgui=0;
+        
+        proc_ok([],[],p)
+        return
+    end 
+end
 
 
 makefig(p);
@@ -256,39 +273,57 @@ end
 
 function proc_ok(e,e2,arg)
 % arg
-if arg==0
-    close(gcf);
-    return
+isgui=1;
+if isstruct(arg)
+    s=arg;
+    isgui=s.isgui;
+elseif isnumeric(arg)
+    if arg==0
+        close(gcf);
+        return
+    end
 end
 %% ===============================================
 
+if isgui==1;
+    u=get(gcf,'userdata');
+    f=u.files2copy;
+    val=[];
+    for i=1:size(f,1)
+        hb=findobj(gcf,'tag',f{i,4});
+        val(i,1)=hb.Value;
+    end
+    f=f(val==1,:);
+    % ----------path
+    hb=findobj(gcf,'tag','ed_destinpath');
+    destpath=get(hb,'string');
+    [pa sub]=fileparts(destpath);
+    if exist(pa)~=7
+        disp('no valid destination path, please select a proper destination  path');
+        return
+    end
+else
+    f=s.files2copy;
+    destpath=fullfile(pwd,'mpm');
+end
 
-u=get(gcf,'userdata');
-f=u.files2copy;
-val=[];
-for i=1:size(f,1)
-    hb=findobj(gcf,'tag',f{i,4});
-    val(i,1)=hb.Value;
-end
-f=f(val==1,:);
-% ----------path
-hb=findobj(gcf,'tag','ed_destinpath');
-destpath=get(hb,'string');
-[pa sub]=fileparts(destpath);
-if exist(pa)~=7
-    disp('no valid destination path, please select a proper destination  path');
-    return
-end
+%% ==========[make dir]=====================================
+
+
 if exist(destpath)~=7
     mkdir(destpath)
 else
     %% ===============================================
-    
-    ButtonName = questdlg('This might overwrite existing files in the "mpm"-folder', ...
-        'Proceed?', ...
-        'Yes', 'no,cancel','Yes');
-    if  strcmp(ButtonName,'Yes')==0
-        disp('..cancelled...')
+    if isgui==1
+        ButtonName = questdlg('This might overwrite existing files in the "mpm"-folder', ...
+            'Proceed?', ...
+            'Yes', 'no,cancel','Yes');
+        if  strcmp(ButtonName,'Yes')==0
+            disp('..cancelled...')
+        else
+            disp('..cancelled...');
+            return
+        end
     end
     
     %% ===============================================
@@ -301,8 +336,15 @@ if isempty(f)
     disp('no files selected')
 end
 disp(['copying files to: ' destpath]);
+
+if isgui==1
+   path_resources= u.path_resources;
+else
+    path_resources=s.path_resources;
+end
+
 for i=1:size(f)
-    f1=fullfile(u.path_resources,  f{i,1});
+    f1=fullfile(path_resources,  f{i,1});
     f2=fullfile(destpath        ,  f{i,1});
     disp(['  ..copying "' f{i,1} '" ..' ]);
     copyfile(f1,f2,'f')
