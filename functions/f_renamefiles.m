@@ -20,9 +20,13 @@ f_getconfig();
 global mpm
 a2=mpm.niftis.a2;
 %% =========[animal dirs]======================================
+isexternMdirs=0;
 if exist('mdirs')==1
     mdirs=cellstr(mdirs);
-    antcb('selectdirs',mdirs); drawnow;
+    try
+        antcb('selectdirs',mdirs); drawnow;
+    end
+    isexternMdirs=1;
 else
     global an
     if isempty(an)
@@ -32,7 +36,7 @@ else
             ' [2] load study via ANTx-toolbox and select animals']);
     else
       mdirs=antcb('getsubjects');  
-        
+       isexternMdirs=0; 
     end    
 end
 
@@ -40,7 +44,14 @@ end
 files=mpm.niftis.f;
 % files=c.f;
 
-
-for i=1:size(files,1)
-   xrename(0,  files{i,2}  , [files{i,1} '.nii'],  ':');  
+if isexternMdirs==0;
+    for i=1:size(files,1)
+        xrename(0,  files{i,2}  , [files{i,1} '.nii'],  ':');
+    end
+else
+    for i=1:size(files,1)
+        xrename(0,  files{i,2}  , [files{i,1} '.nii'],  ':', 'mdirs', mdirs );
+    end
 end
+
+

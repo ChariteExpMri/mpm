@@ -20,9 +20,13 @@ f_getconfig();
 global mpm
 a2=mpm.niftis.a2;
 %% =========[animal dirs]======================================
+mdirsExtern=0;
 if exist('mdirs')==1
     mdirs=cellstr(mdirs);
+    try
     antcb('selectdirs',mdirs); drawnow;
+    end
+    mdirsExtern=1;
 else
     global an
     if isempty(an)
@@ -78,9 +82,18 @@ for i=1:length(interpValues)
     thisInterp    =interpValues(i);
     files2=files(find(interpvec==thisInterp));
     if isparfor==0
-        fis=doelastix(1, [] ,files2,thisInterp,'local');
+        if mdirsExtern==0
+            fis=doelastix(1, [] ,files2,thisInterp,'local');
+        else
+            fis=doelastix(1, mdirs ,files2,thisInterp,'local');
+        end
     else
-        fis=doelastix(1, [] ,files2,thisInterp,'local',struct('isparallel',isparfor) );
+        if mdirsExtern==0
+            fis=doelastix(1, [] ,files2,thisInterp,'local',struct('isparallel',isparfor) );
+        else
+            fis=doelastix(1, mdirs ,files2,thisInterp,'local',struct('isparallel',isparfor) );
+        end
+        
     end
 end
 

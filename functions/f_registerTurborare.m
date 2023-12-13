@@ -20,9 +20,13 @@ f_getconfig();
 global mpm
 a2=mpm.niftis.a2;
 %% =========[animal dirs]======================================
+mdirsExtern=0;
 if exist('mdirs')==1
     mdirs=cellstr(mdirs);
+    try
     antcb('selectdirs',mdirs); drawnow;
+    end
+    mdirsExtern=1;
 else
     global an
     if isempty(an)
@@ -79,12 +83,21 @@ z.warpPrefix='c_';
 z.cleanup=[1];
 % z.preRotate=[1.5708 1.837e-16 1.5708];%[ 0 1.5708 -1.5708];%[1.5708 -6.1232e-17 1.5708];%
 z.preRotate=  preorient;%g.t2w_preorient;
-xcoreg(0,z);
+
+if mdirsExtern==0;
+    xcoreg(0,z);
+else
+    xcoreg(0,z,mdirs);
+end
+    
 
 %% =========== rename registered t2w to t2.nii ====================================
 
-
-xrename(0,['c_' mov],'t2.nii',':');
+if mdirsExtern==0;
+    xrename(0,['c_' mov],'t2.nii',':');
+else
+    xrename(0,['c_' mov],'t2.nii',':', 'mdirs', mdirs );
+end
 
 
 

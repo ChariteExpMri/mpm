@@ -19,9 +19,13 @@ f_getconfig();
 global mpm
 a2=mpm.niftis.a2;
 %% =========[animal dirs]======================================
+mdirsExtern=0;
 if exist('mdirs')==1
     mdirs=cellstr(mdirs);
+    mdirsExtern=1;
+    try
     antcb('selectdirs',mdirs); drawnow;
+    end
 else
     global an
     if isempty(an)
@@ -49,4 +53,14 @@ end
 if length(mdirs)==1
     isparfor=0;
 end
-xwarp3('batch','task',[1:4],'autoreg',1,'parfor',isparfor ); %% REGISTRATION
+
+%v.antxprojfile 
+%% ===============================================
+
+if mdirsExtern==0
+    xwarp3('batch','task',[1:4],'autoreg',1,'parfor',isparfor ); %% REGISTRATION
+else
+    xwarp3('batch','task',[1:4 ],'autoreg',1,'parfor',isparfor, 'mdirs',mdirs(:) );
+end
+
+%% ===============================================
