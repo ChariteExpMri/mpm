@@ -25,9 +25,9 @@
 % enabled: process all steps without graphical user-interface
 % #ba 15 Dec 2023 (15:33:53)
 % tutorials added
-%   tutorial_mpm.docx
-%   tutorial_mpm_noGUI_HPC.docx
-%   tutorial_mpm_preorientations.docx
+%   -tutorial_mpm.docx
+%   -tutorial_mpm_noGUI_HPC.docx
+%   -tutorial_mpm_preorientations.docx
 
 %----- EOF
 % make MPMVER.md for GIT: mpmver('makempmver')

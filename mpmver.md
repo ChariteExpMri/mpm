@@ -8,9 +8,9 @@
 ------------------  
   &#x1F535;   <ins>**15 Dec 2023 (15:33:53)**</ins>  
   tutorials added  
-    tutorial_mpm.docx  
-    tutorial_mpm_noGUI_HPC.docx  
-    tutorial_mpm_preorientations.docx  
+    -tutorial_mpm.docx  
+    -tutorial_mpm_noGUI_HPC.docx  
+    -tutorial_mpm_preorientations.docx  
 <!---->
   &#x1F535;   <ins>**13 Dec 2023 (11:19:05)**</ins>  
   enabled: process all steps without graphical user-interface  
