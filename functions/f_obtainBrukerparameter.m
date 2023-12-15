@@ -82,25 +82,39 @@ catch
 end
 
 f2=c.xlsfile;
+%% ============[get last modification in secs]===================================
+% BLOCK WRITING EXCEL IF diff last MODIF-IME IS < block_time_sec
+so=dir(f2);
+t1=datevec(so.datenum);
+t2=datevec(now);
+difftime_sec=round(etime(t2,t1));
+block_time_sec=5; 
 
-if isExcel==1
-    [~,sheets]=xlsfinfo(c.xlsfile);
-    pwrite2excel(f2,{1 sheets{1}},c.ha,[],d);
+% difftime_sec>block_time_sec;
+
+%% ===============================================
+if difftime_sec>block_time_sec
+    if isExcel==1
+        [~,sheets]=xlsfinfo(f2);
+        pwrite2excel(f2,{1 sheets{1}},c.ha,[],d);
+    else
+        %% ===============================================
+        ht=c.ha;
+        ht=regexprep(ht,{'(.*\)' ,'\s+' },'');
+        t=cell2table(d,'VariableNames',ht);
+        writetable(t,f2,'Sheet',1);
+    end
+    showinfo2('VISU-parameters added: ' ,f2);
 else
-    %% ===============================================
-    ht=c.ha;
-    ht=regexprep(ht,{'(.*\)' ,'\s+' },'');
-    t=cell2table(d,'VariableNames',ht);
-    writetable(t,f2,'Sheet',1);
+    disp(['excelfile..no modifications, because last modification is < ' num2str(difftime_sec) 's ago!']);
 end
-
 %% ===============================================
 
 
 
 
 
-showinfo2('VISU-parameters added: ' ,f2);
+
 
 
 
