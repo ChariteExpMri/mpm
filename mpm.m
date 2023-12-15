@@ -319,6 +319,20 @@ elseif strcmp(varargin{1}{1},'steps') || strcmp(varargin{1}{1},'funlist')
     disp('*available hmrimodels ');
     
     %% ===============================================
+elseif strcmp(varargin{1}{1},'reload')  
+    
+    global mpm
+    m=mpm;
+    clear mpm;
+    if isfield(m,'mpm_configfile')
+        if exist(m.mpm_configfile)==2
+            feval('mpm');
+            loadconfigfile([],[],m.mpm_configfile);
+        else
+            disp('please load configfile manually');
+        end
+    end
+    
     
 end
 
@@ -754,11 +768,14 @@ function makeMenu()
  f = uimenu('Label',repmat(' ',[1 50]));
 f = uimenu('Label','Preproc');
     uimenu(f,'Label','estimate pre-orientation t2w to T1/PD/MT','callback',{@cb_menu,'estimPreorient'});
+    uimenu(f,'Label','estimate pre-orientation T1/PD/MT to template(AVGT.nii)','callback',{@cb_menu,'estimPreorient2Template'});
  
 f = uimenu('Label','Info');
     uimenu(f,'Label','<html><font color="blue">visit mpm-for-rodents (github)','callback',{@cb_menu,'visit_mpm-for-rodents_github'});
     uimenu(f,'Label','<html><font color="blue">visit ANTx2 (github)'          ,'callback',{@cb_menu,'visit_antx_github'});
+    uimenu(f,'Label','<html><b>documentations (docs)'                         ,'Callback',{@cb_menu, 'docs'});
 
+    
 % ==============================================
 %%   select all (preproc)
 % ===============================================
@@ -810,8 +827,16 @@ set(findobj(gcf,'tag','lb_animaldirs'),'string','');
 % selectAnimals
 
 
-function loadconfigfile(e,e2)
-[fi pa]=uigetfile(fullfile(pwd,'*.m'),'load configuration-file["mpm_config.m"]');
+function loadconfigfile(e,e2,configfile)
+
+
+if exist('configfile')==1
+    [pa fi ext]=fileparts(configfile);
+    fi=[fi ext];
+else
+    [fi pa]=uigetfile(fullfile(pwd,'*.m'),'load configuration-file["mpm_config.m"]');
+end
+
 if isnumeric(fi); 
     return 
 else
@@ -1066,7 +1091,10 @@ function cb_menu(e,e2,task)
 if strcmp(task,'estimPreorient')
 %     f_estimPreorient();
     f_estimPreorient([],'sel');
-else strcmp(task,'visit_mpm-for-rodents_github') || strcmp(task,'visit_antx_github'); 
+elseif strcmp(task,'estimPreorient2Template')
+%     f_estimPreorient();
+    f_estimPreorient2template([],'sel');
+elseif strcmp(task,'visit_mpm-for-rodents_github') || strcmp(task,'visit_antx_github'); 
     if strcmp(task,'visit_mpm-for-rodents_github')
         github='https://github.com/ChariteExpMri/mpm_rodent';
     elseif strcmp(task,'visit_antx_github')
@@ -1089,7 +1117,9 @@ else strcmp(task,'visit_mpm-for-rodents_github') || strcmp(task,'visit_antx_gith
     elseif ispc
         %system(['start ' github]);
         web(github,'-browser'); 
-    end
+     end
+elseif strcmp(task,'docs')   
+    explorer(fullfile(fileparts(which('mpm.m')),'docs'));
 end
 
 

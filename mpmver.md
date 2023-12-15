@@ -1,13 +1,19 @@
 ## **mpm Modifications**
- &#x1F535; last modification:   13 Dec 2023 (11:19:05)  
+ &#x1F535; last modification:   15 Dec 2023 (15:33:53)  
     
  &#8658; Respository: <a href= "https://github.com/ChariteExpMri/mpm">https://github.com/ChariteExpMri/mpm</a>  
     
     
     
 ------------------  
+  &#x1F535;   <ins>**15 Dec 2023 (15:33:53)**</ins>  
+  tutorials added  
+    tutorial_mpm.docx  
+    tutorial_mpm_noGUI_HPC.docx  
+    tutorial_mpm_preorientations.docx  
+<!---->
   &#x1F535;   <ins>**13 Dec 2023 (11:19:05)**</ins>  
-  enabled: process all steps without graphical user-interface   
+  enabled: process all steps without graphical user-interface  
 <!---->
   &#x1F535;   <ins>**29 Nov 2023 (15:52:10)**</ins>  
   fixed bugs: SPM-window/handling  

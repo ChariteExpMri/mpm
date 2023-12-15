@@ -1,4 +1,4 @@
-% estimate pre-orientation
+% estimate pre-orientation  t2w to T1/MT/PD
 function f_estimPreorient(mdirs,varargin)
 % ==============================================
 %%   example without ANTX-tbx
@@ -179,9 +179,16 @@ end
 
 %% ===============================================
 cprintf('*[0 0 1]',[ 'GET PREORIENTATION'  '\n'] );
-cprintf('[0 0 1]',[ 'set the 3 landmarks in each volume.'  '\n'] );
-cprintf('[0 0 1]',[ 'Than, select Mricron from pulldown and click [check]-button to inspect the overlay.'  '\n'] );
-cprintf('[0 0 1]',[ 'If the overlay is "ROUGHLY" OK, hit [CLOSE]-button.'  '\n'] );
+cprintf('[0 0 1]',[ '1) change each image to CORONAL orientation [dim1],[dim2] or [dim3] button'  '\n'] );
+cprintf('[0 0 1]',[ '2) set 3 landmarks in each volume'  '\n'] );
+disp( ['     2.1) top(superior) of OLFACT. BULBUS']);
+disp( ['     2.2) superior part of MIDLINE STRUCTURE']);
+disp( ['     2.3) inferor part of MIDLINE STRUCTURE and onthe same plane as (2)']);
+disp( ['       -ideally, the 3 points (a) anatomically match in both images ']);
+disp( ['                              (b) must have a large large distance from each other ']);
+cprintf('[0 0 1]',[ '3) Select MRicron from pulldown and hit [check]-button to inspect the overlay.'  '\n'] );
+disp( ['             -alternatively, just and hit [check]-button (without MRicron)  ']);
+cprintf('[0 0 1]',[ '4) If the overlay is "ROUGHLY" OK, hit [CLOSE]-button.'  '\n'] );
 %% ===============================================
 
 
