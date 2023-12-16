@@ -1,5 +1,6 @@
 
 %obtain bruker-parameter
+% GET BRUKER-DATA only from 1st SELECTEd ANIMAL    ## IMPORTANT ##
 function f_obtainBrukerparameter(mdirs)
 % ==============================================
 %%   example without ANTX-tbx
@@ -42,7 +43,29 @@ if exist('paras')~=1 || isempty(paras)
         'VisuAcqRepetitionTime'
         };
 end
-pa=mdirs{1};
+pa=mdirs{1}; % GET BRUKER-DATA only from 1st SELECTEd ANIMAL    ## IMPORTANT ##
+
+%% ========[check fileNames] =======================================
+filesFP=stradd(files(:,2),[pa filesep] ,1);
+imiss=find(existn(filesFP)==0);
+
+if ~isempty(imiss)
+    [~,animal]=fileparts(pa);
+    try; cprintf('*[1 0 1]',[ '___ERROR: fileName not found___'  '\n'] ); end
+    tit=['*** ERROR: MISSING FILE in [' animal '] ***'];
+    hmis={'shortName' 'expected Name' 'Path'};
+    mis=[files(imiss,:) repmat({pa},[length(imiss)  1])];
+    disp(char(plog([],[hmis;mis ],0,tit ,'al=1;' )));
+    disp([' ' sprintf('%c',8594) 'check consistency of animal-fileNames & fileNames in excelfile ("' mpm.NIFTI_parameters '")']);
+    error('..fileName not found ..check above hint!');
+%     return
+    
+
+end
+
+%% ===============================================
+
+
 
 tb=getbrukerparamss(files, paras,pa);
 
@@ -131,7 +154,24 @@ for j=1:length(k)
     
     for i=1:length(files)
         f1=fullfile(pa,files{i,2});
-        ix=find(~cellfun(@isempty,strfind(a,f1)));
+        
+        %% ===============================================
+        %---get HDR of file (solution if file was renamed)
+        h=spm_vol(f1);
+        pa_rawHDR=h.descrip;
+        
+        
+        ix=find(~cellfun(@isempty,strfind(a,pa_rawHDR)));
+        if isempty(ix)
+            try
+                ix=find(~cellfun(@isempty,strfind(a,f1)))
+            catch
+                error(['rawDataPath not found: '  f1 ]);
+            end
+        end
+        %% ===============================================
+        
+        
         for u=1:length(ix)
             a2=a{ix(u)};
             a3=strsplit(a2,' ');
