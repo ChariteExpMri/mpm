@@ -33,7 +33,7 @@ ADVANTAGE: updates can be made via toolbox
 - https://github.com/ChariteExpMri/antx2
 
 ## Tutorial ##
-- For a tutorial see: https://raw.githubusercontent.com/ChariteExpMri/mpm/master/tutorial_mpm.docx
+- For a tutorial see: https://github.com/ChariteExpMri/mpm_rodent/tree/master/docs
 
 
 
