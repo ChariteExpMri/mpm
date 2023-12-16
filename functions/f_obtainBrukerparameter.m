@@ -58,9 +58,6 @@ if ~isempty(imiss)
     disp(char(plog([],[hmis;mis ],0,tit ,'al=1;' )));
     disp([' ' sprintf('%c',8594) 'check consistency of animal-fileNames & fileNames in excelfile ("' mpm.NIFTI_parameters '")']);
     error('..fileName not found ..check above hint!');
-%     return
-    
-
 end
 
 %% ===============================================
