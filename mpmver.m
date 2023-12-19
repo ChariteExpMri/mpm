@@ -28,6 +28,10 @@
 %   -tutorial_mpm.docx
 %   -tutorial_mpm_noGUI_HPC.docx
 %   -tutorial_mpm_preorientations.docx
+% #ba 19 Dec 2023 (17:10:01)
+% easer pre-orientation mode (gui/noGUI) 
+% update tutorials
+% 
 
 %----- EOF
 % make MPMVER.md for GIT: mpmver('makempmver')

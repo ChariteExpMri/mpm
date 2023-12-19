@@ -1,11 +1,15 @@
 ## **mpm Modifications**
- &#x1F535; last modification:   15 Dec 2023 (15:33:53)  
+ &#x1F535; last modification:   19 Dec 2023 (17:10:01)  
     
  &#8658; Respository: <a href= "https://github.com/ChariteExpMri/mpm">https://github.com/ChariteExpMri/mpm</a>  
     
     
     
 ------------------  
+  &#x1F535;   <ins>**19 Dec 2023 (17:10:01)**</ins>  
+  easer pre-orientation mode (gui/noGUI)   
+  update tutorials  
+<!---->
   &#x1F535;   <ins>**15 Dec 2023 (15:33:53)**</ins>  
   tutorials added  
     -tutorial_mpm.docx  
