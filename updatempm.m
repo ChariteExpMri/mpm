@@ -272,7 +272,11 @@ if updatecode==3 %hard reset
         setstatus(2,'Up-to-date. Updating finished');
         cd(p.pathbefore);
     else
-        setstatus(3,'updaiting failed..try again or make fresh installation');
+        if ~isempty(strfind(msg,'error: remote origin already exists.'))
+             setstatus(2,'Up-to-date. Updating finished');
+        else
+            setstatus(3,'updaiting failed..try again or make fresh installation');
+        end
         cd(p.pathbefore);
     end
     

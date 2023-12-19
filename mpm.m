@@ -296,7 +296,7 @@ if strcmp(varargin{1}{1},'nogui')
   
   
 elseif strcmp(varargin{1}{1},'orientSS') 
-   % mpm( 'orientSS' ,'mpm_configfile',fullfile(pwd,'mpm','mpm_config.m'))
+   % mpm('orientSS','mpm_configfile',fullfile(pwd,'mpm','mpm_config.m')); %make HTMLfile: orientation T1/MT/PD-space to standard-space
     %% ===============================================
     v=varargin{1};
     s=cell2struct(v(3:2:end),v(2:2:end),2);
@@ -305,7 +305,7 @@ elseif strcmp(varargin{1}{1},'orientSS')
     %% ===============================================
     
 elseif strcmp(varargin{1}{1},'orientT2w') 
-   % mpm( 'orientT2w' ,'mpm_configfile',fullfile(pwd,'mpm','mpm_config.m'))
+   % mpm('orientT2w','mpm_configfile',fullfile(pwd,'mpm','mpm_config.m'));  %make HTMLfile: orientation t2w-space to T1/MT/PD-space
     %% ===============================================
     v=varargin{1};
     s=cell2struct(v(3:2:end),v(2:2:end),2);

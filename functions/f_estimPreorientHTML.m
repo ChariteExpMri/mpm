@@ -31,6 +31,9 @@ else
     end
 end
 mdirs=cellstr(mdirs);
+if isempty(char(mdirs))
+    mdirs=antcb('getallsubjects');
+end
 % ==============================================
 %%   vars in
 % ===============================================
