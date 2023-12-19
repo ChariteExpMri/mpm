@@ -146,11 +146,14 @@ else
         sub_importTemplate(); 
     end
     if      ~isempty(find(strcmp(t(:,1),'T1')==1))
-        mov='t1.nii' ;
+        %mov='t1.nii' ;
+        mov=t{find(strcmp(t(:,1),'T1')==1),2};
     elseif  ~isempty(find(strcmp(t(:,1),'MT')==1))
-        mov='MT.nii' ;
+        %mov='MT.nii' ;
+        mov=t{find(strcmp(t(:,1),'MT')==1),2};
     elseif  ~isempty(find(strcmp(t(:,1),'PD')==1))
-        mov='PD.nii' ;
+        %mov='PD.nii' ;
+        mov=t{find(strcmp(t(:,1),'PD')==1),2};
     end
     
     
