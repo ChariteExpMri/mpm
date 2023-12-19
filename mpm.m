@@ -765,10 +765,14 @@ set(gcf,'userdata',p);
 
 
 function makeMenu()
+
  f = uimenu('Label',repmat(' ',[1 50]));
 f = uimenu('Label','Preproc');
     uimenu(f,'Label','estimate pre-orientation t2w to T1/PD/MT','callback',{@cb_menu,'estimPreorient'});
     uimenu(f,'Label','estimate pre-orientation T1/PD/MT to template(AVGT.nii)','callback',{@cb_menu,'estimPreorient2Template'});
+    
+    uimenu(f,'Label','<html><font color="blue">estimate pre-orientation t2w to T1/PD/MT .              ..use HTML-version'  ,'callback',{@cb_menu,'estimPreorientHTML'},'separator','on');
+    uimenu(f,'Label','<html><font color="blue">estimate pre-orientation T1/PD/MT to template(AVGT.nii) ..use HTML-version'  ,'callback',{@cb_menu,'estimPreorient2TemplateHTML'});
  
 f = uimenu('Label','Info');
     uimenu(f,'Label','<html><font color="blue">visit mpm-for-rodents (github)','callback',{@cb_menu,'visit_mpm-for-rodents_github'});
@@ -1094,6 +1098,16 @@ if strcmp(task,'estimPreorient')
 elseif strcmp(task,'estimPreorient2Template')
 %     f_estimPreorient();
     f_estimPreorient2template([],'sel');
+%% =======HTML versions========================================
+elseif strcmp(task,'estimPreorientHTML')
+    %f_estimPreorientHTML([],'sel');
+    f_estimPreorientHTML;
+elseif strcmp(task,'estimPreorient2TemplateHTML')
+%     f_estimPreorient2templateHTML([],'sel');
+    f_estimPreorient2templateHTML;
+%% ===============================================
+
+    
 elseif strcmp(task,'visit_mpm-for-rodents_github') || strcmp(task,'visit_antx_github'); 
     if strcmp(task,'visit_mpm-for-rodents_github')
         github='https://github.com/ChariteExpMri/mpm_rodent';
