@@ -105,6 +105,12 @@
 % 
 % 
 % 
+%% example-3 : noGUI-mode: obtain HTML with preorientations
+% Html-files will be created in the checksfolfer
+% 
+% mpm('orientSS','mpm_configfile',fullfile(pwd,'mpm','mpm_config.m')); %make HTMLfile: orientation T1/MT/PD-space to standard-space
+% mpm('orientT2w','mpm_configfile',fullfile(pwd,'mpm','mpm_config.m'));  %make HTMLfile: orientation t2w-space to T1/MT/PD-space
+   
 
 
 
@@ -293,8 +299,7 @@ if strcmp(varargin{1}{1},'nogui')
  
   runsteps(s);
   
-  
-  
+ 
 elseif strcmp(varargin{1}{1},'orientSS') 
    % mpm('orientSS','mpm_configfile',fullfile(pwd,'mpm','mpm_config.m')); %make HTMLfile: orientation T1/MT/PD-space to standard-space
     %% ===============================================
@@ -303,7 +308,6 @@ elseif strcmp(varargin{1}{1},'orientSS')
     f_getconfig(s.mpm_configfile); %create global
     f_estimPreorient2templateHTML;
     %% ===============================================
-    
 elseif strcmp(varargin{1}{1},'orientT2w') 
    % mpm('orientT2w','mpm_configfile',fullfile(pwd,'mpm','mpm_config.m'));  %make HTMLfile: orientation t2w-space to T1/MT/PD-space
     %% ===============================================
