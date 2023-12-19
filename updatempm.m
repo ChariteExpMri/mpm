@@ -261,7 +261,8 @@ if updatecode==3 %hard reset
     
     %Add your remote repository (published on GitHub):
     %git remote add origin https://github.com/pstkoch/mpm
-    try; git(['remote add origin ' gitrepository]); end
+    %try; git(['remote add origin ' gitrepository]); end
+    [ao1 ]=evalc(['git([''remote add origin '' gitrepository]);'  ]);
     git pull origin master
     % ---------------------
     

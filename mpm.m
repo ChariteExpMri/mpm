@@ -294,7 +294,6 @@ if strcmp(varargin{1}{1},'nogui')
             addpath(paSPM);
             disp(['...add path of external SPM: ' paSPM]);
         end
-        
     end
  
   runsteps(s);
@@ -306,6 +305,17 @@ elseif strcmp(varargin{1}{1},'orientSS')
     v=varargin{1};
     s=cell2struct(v(3:2:end),v(2:2:end),2);
     f_getconfig(s.mpm_configfile); %create global
+    global mpm
+    paSPM=which('spm.m');
+    if isempty(paSPM)
+        pa_wd=pwd;
+        if ~isempty(mpm.SPM_path)
+            paSPM=mpm.SPM_path;
+            addpath(paSPM);
+            disp(['...add path of external SPM: ' paSPM]);
+        end
+    end
+    
     f_estimPreorient2templateHTML;
     %% ===============================================
 elseif strcmp(varargin{1}{1},'orientT2w') 
@@ -314,6 +324,16 @@ elseif strcmp(varargin{1}{1},'orientT2w')
     v=varargin{1};
     s=cell2struct(v(3:2:end),v(2:2:end),2);
     f_getconfig(s.mpm_configfile); %create global
+    global mpm
+    paSPM=which('spm.m');
+    if isempty(paSPM)
+        pa_wd=pwd;
+        if ~isempty(mpm.SPM_path)
+            paSPM=mpm.SPM_path;
+            addpath(paSPM);
+            disp(['...add path of external SPM: ' paSPM]);
+        end
+    end
     f_estimPreorientHTML;
     %% ===============================================  
     
