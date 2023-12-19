@@ -124,14 +124,18 @@ if exist('z')==1
     
 else
     
-    mov='t2w.nii';%g.files{strcmp(g.files(:,1),'t2w'),2};
+    %mov='t2w.nii';%g.files{strcmp(g.files(:,1),'t2w'),2};
+    mov=t{find(strcmp(t(:,1),'t2w')==1),2}
     
     if      ~isempty(find(strcmp(t(:,1),'T1')==1))
-        fix='t1.nii' ;
+        %fix='t1.nii' ;
+        fix=t{find(strcmp(t(:,1),'T1')==1),2};
     elseif  ~isempty(find(strcmp(t(:,1),'MT')==1))
-        fix='MT.nii' ;
+        %fix='MT.nii' ;
+        fix=t{find(strcmp(t(:,1),'MT')==1),2};
     elseif  ~isempty(find(strcmp(t(:,1),'PD')==1))
-        fix='PD.nii' ;
+        %fix='PD.nii' ;
+        fix=t{find(strcmp(t(:,1),'PD')==1),2};
     end
 end
 
