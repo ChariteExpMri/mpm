@@ -125,7 +125,7 @@ if exist('z')==1
 else
     
     %mov='t2w.nii';%g.files{strcmp(g.files(:,1),'t2w'),2};
-    mov=t{find(strcmp(t(:,1),'t2w')==1),2}
+    mov=t{find(strcmp(t(:,1),'t2w')==1),2};
     
     if      ~isempty(find(strcmp(t(:,1),'T1')==1))
         %fix='t1.nii' ;
