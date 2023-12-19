@@ -290,10 +290,30 @@ if strcmp(varargin{1}{1},'nogui')
         end
         
     end
+ 
+  runsteps(s);
+  
+  
+  
+elseif strcmp(varargin{1}{1},'orientSS') 
+   % mpm( 'orientSS' ,'mpm_configfile',fullfile(pwd,'mpm','mpm_config.m'))
+    %% ===============================================
+    v=varargin{1};
+    s=cell2struct(v(3:2:end),v(2:2:end),2);
+    f_getconfig(s.mpm_configfile); %create global
+    f_estimPreorient2templateHTML;
+    %% ===============================================
+    
+elseif strcmp(varargin{1}{1},'orientT2w') 
+   % mpm( 'orientT2w' ,'mpm_configfile',fullfile(pwd,'mpm','mpm_config.m'))
+    %% ===============================================
+    v=varargin{1};
+    s=cell2struct(v(3:2:end),v(2:2:end),2);
+    f_getconfig(s.mpm_configfile); %create global
+    f_estimPreorientHTML;
+    %% ===============================================  
     
     
-    
-    runsteps(s);
 elseif strcmp(varargin{1}{1},'steps') || strcmp(varargin{1}{1},'funlist')
     %% ===============================================
     
