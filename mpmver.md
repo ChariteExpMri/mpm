@@ -1,14 +1,18 @@
 ## **mpm Modifications**
- &#x1F535; last modification:   19 Dec 2023 (17:10:01)  
+ &#x1F535; last modification:   11 Jan 2024 (13:01:32)  
     
  &#8658; Respository: <a href= "https://github.com/ChariteExpMri/mpm">https://github.com/ChariteExpMri/mpm</a>  
     
     
     
 ------------------  
+  &#x1F535;   <ins>**11 Jan 2024 (13:01:32)**</ins>  
+  add option to copy resulting NIFTI-files to upper animal-directory  
+<!---->
   &#x1F535;   <ins>**19 Dec 2023 (17:10:01)**</ins>  
   easer pre-orientation mode (gui/noGUI)   
   update tutorials  
+    
 <!---->
   &#x1F535;   <ins>**15 Dec 2023 (15:33:53)**</ins>  
   tutorials added  

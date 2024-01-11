@@ -77,6 +77,10 @@
 % mpm('nogui',v)             ; % run proccessing steps without GUI
 % ______________________________________________________________________
 % 
+% NOTE "v.mdirs" options:
+%   1) cell containing fullpath-animal-folders
+%   2) 'all' (string) -- all animals in the 'dat'-folder will be used
+%   3) [1,2,3] (indices) -- using indices of animals in the 'dat'-folder
 %% ==================================================================================
 %% example-2 : noGUI-mode, run hmri-steps steps using external SPM (without antx)
 %% ===================================================================================
@@ -102,10 +106,20 @@
 %         };
 % mpm('nogui',v)             ; % run proccessing steps without GUI
 % ______________________________________________________________________
-% 
-% 
-% 
-%% example-3 : noGUI-mode: obtain HTML with preorientations
+%% ==================================================================================
+%% example-3 : noGUI-mode, run hmri-steps 
+% here only the resulting NIFTI-files will be copied to the upper animal-folder for
+% all animals
+%% ===================================================================================
+% clear all;
+% v=struct();
+% v.mpm_configfile   = 'F:\data8_MPM\MPM_agBrandt3\mpm\mpm_config.m'  ; % mpm-configfile
+% v.pstep            = []    ; % indices of preprocessing steps  , use 'all' or use indices such as:  [1:5]; see mpm('steps');
+% v.hstep            = 6     ; % indices of hmri-processing steps, use 'all' or use indices such as:  [1:5]; see mpm('steps');
+% v.mdirs            = 'all' ; % all animals from 'dat'-folder are used
+% mpm('nogui',v)  ; % run proccessing steps without GUI
+%% ===============================================
+%% example-4 : noGUI-mode: obtain HTML with preorientations
 % Html-files will be created in the checksfolfer
 % 
 % mpm('orientSS','mpm_configfile',fullfile(pwd,'mpm','mpm_config.m')); %make HTMLfile: orientation T1/MT/PD-space to standard-space
@@ -428,6 +442,7 @@ t2={...
     'multiply'       1   'f_multplyFactor'          'scale image by factor'         ['']
     'runmodel'       1   ''                         'selected model to run'         ['']
     'normalize'      1   'f_PDnormalize'            'normalize image by mask'       [''] 
+    'copy2animalDir' 1   'f_copyNIFTI2animalDir'    'copy reulting files to animalDir '    [''] 
 };
 t2(1:end,2)={0};
 p.t2=t2;
@@ -727,6 +742,17 @@ set(hb,'value',p.t2{strcmp(p.t2(:,1), hb.Tag),2});
 set(hb,'tooltipstring',['normalize "A"/intensity image using a reference mask (binary image)  ' char(10)...
     'The resulting image depicts values (percentages) w.r.t. the ROI of the reference mask']);
 
+%==========[copy outputfiles to upper animalDir]=====================================
+hb=uicontrol('style','radio','backgroundcolor','w','units','norm');
+set(hb,'string','copy files to animalDIR');
+set(hb,'position',[0.5 0.45 0.4 0.047]);
+% set(hb,'callback',{@proc2,'split4D;'})
+set(hb,'tag','copy2animalDir');
+set(hb,'value',p.t2{strcmp(p.t2(:,1), hb.Tag),2});
+
+set(hb,'tooltipstring',['copy resulting NIFTI-files from "Results"-dir to upper animal-dir ' char(10)...
+    '']);
+
 
 %% ==========[Help model-button]=====================================
 hb=uicontrol('style','pushbutton','backgroundcolor','w','units','norm');
@@ -980,10 +1006,10 @@ if useGUI==1;
     end
 else
     if ischar(u.hstep) && strcmp(u.hstep,'all')
-        curval=ones(size(u.t1,1),1);
+        curval=ones(size(u.t2,1),1);
     else
-        hstep=intersect([1:size(u.t1,1)],u.hstep);
-        curval=zeros(size(u.t1,1),1);
+        hstep=intersect([1:size(u.t2,1)],u.hstep);
+        curval=zeros(size(u.t2,1),1);
         curval(hstep)=1;
     end
 end
@@ -1014,14 +1040,28 @@ t2=t2(curval==1,:);
 %% ========[mdirs]=======================================
 
 if useGUI==1;
-% ___mdirs__
-hm=findobj(gcf,'tag','lb_animaldirs');
-mdirs=get(hm,'string');
-if isempty(char(mdirs))
-    mdirs=[];
-end
+    % ___mdirs__
+    hm=findobj(gcf,'tag','lb_animaldirs');
+    mdirs=get(hm,'string');
+    if isempty(char(mdirs))
+        mdirs=[];
+    end
 else
-    mdirs=cellstr(u.mdirs);
+    if isnumeric(u.mdirs) || (ischar(u.mdirs) && strcmp(u.mdirs,'all'))
+        padattmp=fullfile(fileparts(fileparts(u.mpm_configfile)),'dat');
+        [dirstmp] = spm_select('FPList',padattmp,'dir');
+        dirstmp=cellstr(dirstmp);
+        
+        if isnumeric(u.mdirs)
+            imdir=intersect(1:length(dirstmp), u.mdirs);
+            mdirs=dirstmp(imdir);
+        elseif ischar(u.mdirs) && strcmp(u.mdirs,'all')
+            mdirs=dirstmp;
+        end
+    else
+        mdirs=cellstr(u.mdirs);
+    end
+    % disp(u.mdirs); return
 end
 %% ========[funclist]============================
 funclist=[t1(:,3); t2(:,3)];

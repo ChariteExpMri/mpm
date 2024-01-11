@@ -32,6 +32,10 @@
 % easer pre-orientation mode (gui/noGUI) 
 % update tutorials
 % 
+% #ba 11 Jan 2024 (13:01:32)
+% add option to copy resulting NIFTI-files to upper animal-directory
+% 
+% 
 
 %----- EOF
 % make MPMVER.md for GIT: mpmver('makempmver')
