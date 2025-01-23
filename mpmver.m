@@ -35,6 +35,10 @@
 % #ba 11 Jan 2024 (13:01:32)
 % add option to copy resulting NIFTI-files to upper animal-directory
 % 
+% #ba 23 Jan 2025 (10:33:20)
+% [f_obtainBrukerparameter.m]  --> fixed readout bug  
+% 
+% 
 % 
 
 %----- EOF
