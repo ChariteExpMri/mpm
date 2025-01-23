@@ -216,7 +216,7 @@ for i=1:size(paras,1)
     u=regexpi2(q,[ '##\$' paras{i} '=']);
     if ~isempty(strfind(q{u},')'))
         %t0=q(u+1);
-        icmd=regexpi2(q,'^##');
+        icmd=regexpi2(q,'^##|^\$\$');
         ue=min(icmd(find(icmd>u)))-1;
         t0=strjoin(q(u+1:ue),' ');
 
