@@ -90,6 +90,7 @@ for i=1:length(tags)
         ic=find(strcmp(c.ha,paras{j,2}));
         ms=getfield(tb(i),paras{j,1});
         ms=regexprep(ms,'\s+',',');
+        if strcmp(ms(end),','); ms(end)=[]; end  ;%remove trailing comma
         d{ix,ic}=ms;
     end
 end
@@ -214,7 +215,12 @@ for i=1:size(paras,1)
     
     u=regexpi2(q,[ '##\$' paras{i} '=']);
     if ~isempty(strfind(q{u},')'))
-        t0=q(u+1);
+        %t0=q(u+1);
+        icmd=regexpi2(q,'^##');
+        ue=min(icmd(find(icmd>u)))-1;
+        t0=strjoin(q(u+1:ue),' ');
+
+        
     else
         t0=regexprep(q{u},'.*=','');
     end
