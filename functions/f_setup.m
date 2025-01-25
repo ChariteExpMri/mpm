@@ -137,6 +137,30 @@ end
 %     set(hb,'value',1);
 % end
 
+%% ==========[presettings]=====================================
+pathis=pwd;
+pa_resource=fullfile(fileparts(which('mpm.m')),'resources');
+cd(pa_resource);
+tb=mpm_miscsettings;
+cd(pathis);
+
+
+ht=uicontrol('style','text','units','norm','backgroundcolor',[1 1 1]);
+set(ht,'string','path-preselection');
+set(ht,'position',[[0.67199 0.76283 0.3 0.06825]],'fontweight','bold','horizontalalignment','left');
+% ----
+hb=uicontrol('style','popupmenu','units','norm','foregroundcolor',[0 0 1]);
+% set(hb,'position',[0.13524 0.37039 0.9 0.05],'fontweight','normal');
+set(hb,'HorizontalAlignment','left');
+set(hb,'string',tb(:,1),'tag','preselection')
+set(hb,'position',[0.67199 0.58197 0.3 0.2],'fontweight','normal');
+set(hb,'tooltipstring','pre-selection of paths in configfile (or edit file)');
+%% ===============================================
+
+
+
+
+
 %% ==========[TXT: destpath]=====================================
 hb=uicontrol('style','text','units','norm','foregroundcolor',[0 0 1]);
 set(hb,'position',[0.13524 0.37039 0.9 0.05],'fontweight','normal');
@@ -224,7 +248,15 @@ end
 [pa sub]=fileparts(r1);
 sub2='mpm';
 if strcmp(sub,sub2); sub2=''; end
-destpath=fullfile(pa,sub,sub2);
+destpath=fullfile(pa,sub);
+
+
+k=dir(destpath); fis={k(:).name}'; % check if 'destpath' is not studydir
+if isempty(find(~cellfun(@isempty, regexpi(fis,'^dat$|^proj.m$|^raw$|^templates$'))))
+    
+else
+    destpath=fullfile(pa,sub,sub2);
+end
     
 hb=findobj(gcf,'tag','ed_destinpath');
 set(hb,'string',destpath);
@@ -315,11 +347,14 @@ if exist(destpath)~=7
 else
     %% ===============================================
     if isgui==1
-        ButtonName = questdlg('This might overwrite existing files in the "mpm"-folder', ...
+        
+        [~, subdir]=fileparts(destpath);
+        
+        ButtonName = questdlg(['This might overwrite existing files in the "' subdir '"-folder'], ...
             'Proceed?', ...
             'Yes', 'no,cancel','Yes');
-        if  strcmp(ButtonName,'Yes')==0
-            disp('..cancelled...')
+        if  strcmp(ButtonName,'Yes')==1
+            disp('..overwrite settings...')
         else
             disp('..cancelled...');
             return
@@ -356,6 +391,17 @@ end
 
 function changeFile(pa, fi)
 
+%% ==========[presettings]=====================================
+pathis=pwd;
+pa_resource=fullfile(fileparts(which('mpm.m')),'resources');
+cd(pa_resource);
+tb=mpm_miscsettings;
+cd(pathis);
+
+hp=findobj(gcf,'tag','preselection');
+presel=hp.String{hp.Value};
+
+
 %% ===============================================
 respa=fullfile(fileparts(which('mpm')),'resources');
 if strcmp(fi, 'hmri_local_defaults_mouse.m')
@@ -378,13 +424,17 @@ if strcmp(fi, 'hmri_local_defaults_mouse.m')
 elseif strcmp(fi, 'mpm_config.m')  
     %% ===============================================
     
-     f1=fullfile(pa,fi);
+    f1=fullfile(pa,fi);
     a=preadfile(f1); a=a.all;
     a2=a;
     a2=replaceconfiguration(a2, 'mpm.hrmi_defaults'   , fullfile(pa,'hmri_local_defaults_mouse.m'));
     a2=replaceconfiguration(a2, 'mpm.NIFTI_parameters', fullfile(pa,'mpm_NIFTIparameters.xlsx'));
     
     a2=replaceconfiguration(a2, 'mpm.PD_normalizeMask', fullfile(respa,'mask_ventricle.nii'));
+    
+    path_hmri=tb{strcmp(tb(:,1),presel),2}; %REPLACE PRESELECTED HMRI-PATH
+    a2=replaceconfiguration(a2, 'mpm.MPM_path', path_hmri);
+    
 
     %add SPM-path
     [u1 sub]=fileparts(fileparts(fileparts(which('spm.m'))));

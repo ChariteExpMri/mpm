@@ -235,9 +235,11 @@ if ~isempty(s)
     rot_str=sprintf(['%1.' num2str(rnd_dec) 'g '],s.rot_round);
     rot_str(end)=[];  %remove trailing space
  
+    col=[1 0 1];
+    colstr=[ '[' num2str(col) ']'];
     disp(['rotation: ''' rot_str  '''' ]);
     disp(['suggested rot-ID: ['  num2str(s.rot_ixd(1)) ']   from rottable:  ' s.funtable ]);
-    cprintf('*[0 .5 0]',[ 'If needed, please modify your ANTx2-project-file'  '\n'] );
+    cprintf(['*' colstr],[ 'If needed, please modify your ANTx2-project-file'  '\n'] );
     cprintf('[0 .5 0]',[ 'In the ANTx2-project-file set the variable "orientType": '  '\n'] );
     cprintf('[0 .5 0]',[ '  either to: ''' rot_str  ''''  '   ... i.e. three 3 rotations (as string)' '\n'] );
     cprintf('[0 .5 0]',[ '  or to    : ' '['  num2str(s.rot_ixd(1)) ']'  '               ... i.e. the rotation-ID from rotation-table (findrotation2), (as numeric value)' '\n'] );

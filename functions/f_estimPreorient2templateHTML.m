@@ -188,10 +188,13 @@ disp(['HTMLfile:' htmlfile]);
 
 
 %% ===============================================
-col=[0.4941    0.4941    0.4941];
+col=[1 0 1];
 colstr=[ '[' num2str(col) ']'];
 cprintf('*[0 .5 0]',[ 'please inspect HTML-file in "checks"-folder'  '\n'] );
-cprintf([colstr],[ 'If needed, please modify your ANTx2-project-file'  '\n'] );
+cprintf(['*' colstr],[ 'If needed, please modify the'  ] );
+cprintf(['*0.6353    0.0784    0.1843'],[ ' ANTx2-project (proj.m)'  ] );
+cprintf(['*' colstr],[ ' file'  '\n'] );
+
 cprintf([colstr],[ 'In the ANTx2-project-file set the variable "orientType": '  '\n'] );
 cprintf([colstr],[ '  use either the "rotTable-Index" (numeric value) '   '\n'] );
 cprintf([colstr],[ '  or use the three 3 rotations (as string)' '\n'] );

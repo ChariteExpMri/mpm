@@ -1,15 +1,15 @@
 
-% #wg    mpm for rodents    
-% 
+% #wg    mpm for rodents
+%
 % #lk ___[setup]___
 % #b Copy necessary parameter files to user-defined destination folder (mpm-folder)
 % The destination-folder, in most cases named "mpm", is assumed to be located in the study folder:
-% 
-%  DATA STRUCTURE SUGGESTION , EXAMPLE: 
-% Sudyfolder: "F:\DATA7\MPM_AGBRANDT" 
+%
+%  DATA STRUCTURE SUGGESTION , EXAMPLE:
+% Sudyfolder: "F:\DATA7\MPM_AGBRANDT"
 % |---dat                         -dat folder wiht example data (each folder is an animal)
-% |     |---20220725AB_MPM_18-9 
-%       |---20220725AB_MPM_12-4  
+% |     |---20220725AB_MPM_18-9
+%       |---20220725AB_MPM_12-4
 % |---raw                          -contain bruker-raw data
 % |---mpm                          -mpm-folder (conain the parameter files)
 %
@@ -19,43 +19,43 @@
 %                                    Paramters such as FA/TR/TE are obtained from the Bruker-raw data and
 %                                    inserted automatically
 %     mpm_config.m                 : parameters for preprocessing and running the hMRI-toolbox
-%                                    Please modify parameters accordingly 
+%                                    Please modify parameters accordingly
 %                                    further description will follow
-%     hmri_local_defaults_mouse.m  : default paramters of hMRI-toolbox for mouse in standard space (Allen mouse brain) 
-%                                    No need to change these parameters 
-% 
+%     hmri_local_defaults_mouse.m  : default paramters of hMRI-toolbox for mouse in standard space (Allen mouse brain)
+%                                    No need to change these parameters
+%
 % The setup has to be done only once!
-% 
+%
 % #lk ___[load configfile]___
 % #b Load configfile "mpm_config.m".
 % The paramters in mpm_config.m form the global variable "mpm"
 % This step is necessary whn matlab is started or the global variable "mpm" is deleted
-% 
-% 
+%
+%
 % #lk ___[RUN]___
 % Run all selected processing steps, these are selected steps of the preprocessing (prepoc)
 % and hMRI-TBX.
 % #lk ___[update toolbox]___
-% to update toolbox hit [green arrow down]-button right to [version]-button from mpm-GUI 
-% or use command: updatempm 
-% 
-% 
+% to update toolbox hit [green arrow down]-button right to [version]-button from mpm-GUI
+% or use command: updatempm
+%
+%
 % #m IMPORTANT
-% For the prepocessing steps ANTX-toolbox is necessary. 
+% For the prepocessing steps ANTX-toolbox is necessary.
 % For hMRI-TBX-steps, the user is not dependent on the ANTx-toolbox
 % If you use the ANTX-TBX, please select the animals from ANTx-main GUI
-% If you only want to execute the steps from hMRI-TBX without ANTx-TBX please select the 
-% animal folders via "mpm" via button [select animals] 
-% 
-% 
+% If you only want to execute the steps from hMRI-TBX without ANTx-TBX please select the
+% animal folders via "mpm" via button [select animals]
+%
+%
 % ___[optional inputs]_________________
 % mpm('storegui'); %stores GUI-control settings temporally in mpm-global var
-% mpm('recreate'); %sets previously stored GUI-control settings (i.e. selection of radios etc) 
-% mpm('steps');  % display processing steps,functions and numeric indicators 
-% 
-% 
+% mpm('recreate'); %sets previously stored GUI-control settings (i.e. selection of radios etc)
+% mpm('steps');  % display processing steps,functions and numeric indicators
+%
+%
 % #lk ___[noGUI-mode]______without graphical userinterface___________
-% 
+%
 %% ==============================================
 %% example-1 : noGUI-mode using ANTx
 %% ===============================================
@@ -67,8 +67,8 @@
 % v.mpm_configfile   = 'F:\data8_MPM\MPM_agBrandt3\mpm\mpm_config.m'  ; % mpm-configfile
 % v.antx_configfile  = 'F:\data8_MPM\MPM_agBrandt3\proj.m'            ; % antx-projectfile(configfile)
 % v.pstep            = 'all' ; % indices of preprocessing steps  , use 'all' or use indices such as:  [1:5]; see mpm('steps');
-% v.hstep            = 'all' ; % indices of hmri-processing steps, use 'all' or use indices such as:  [1:5]; see mpm('steps');
-% 
+% v.hstep            = 'all' ; % indices of hmri-processing steps, use 'all' or use indices such as:  [1:7]; see mpm('steps');
+%
 % v.mdirs={...                % path of animals-dirs to process
 %     'F:\data8_MPM\MPM_agBrandt3\dat\20220725AB_MPM_18-9_DTI_T2_MPM'
 %     'F:\data8_MPM\MPM_agBrandt3\dat\20220725AB_MPM_12-4_DTI_T2_MPM'
@@ -76,7 +76,7 @@
 % % v.hmrimodel      = fullfile(pwd,'f_runMRM_mode_copy.m'); %optional: use another MODEL-function
 % mpm('nogui',v)             ; % run proccessing steps without GUI
 % ______________________________________________________________________
-% 
+%
 % NOTE "v.mdirs" options:
 %   1) cell containing fullpath-animal-folders
 %   2) 'all' (string) -- all animals in the 'dat'-folder will be used
@@ -91,15 +91,15 @@
 % pa_wd=pwd;
 % cd('F:\mpm\'); mpmlink(1); %adding path of mpm-wrapper functions
 % cd(pa_wd);
-% 
-% 
+%
+%
 % mpm('steps'); %display processing steps,functions and numeric indicators
 % clear all;
 % v=struct();
 % v.mpm_configfile   = 'F:\data8_MPM\MPM_agBrandt3\mpm\mpm_config.m'  ; % mpm-configfile
 % v.pstep            = []    ; % indices of preprocessing steps  , use 'all' or use indices such as:  [1:5]; see mpm('steps');
-% v.hstep            = 'all' ; % indices of hmri-processing steps, use 'all' or use indices such as:  [1:5]; see mpm('steps');
-% 
+% v.hstep            = 'all' ; % indices of hmri-processing steps, use 'all' or use indices such as:  [1:7]; see mpm('steps');
+%
 % v.mdirs={...                % path of animals-dirs to process
 %     'F:\data8_MPM\MPM_agBrandt3\dat\20220725AB_MPM_18-9_DTI_T2_MPM'
 %     %'F:\data8_MPM\MPM_agBrandt3\dat\20220725AB_MPM_12-4_DTI_T2_MPM'
@@ -107,7 +107,7 @@
 % mpm('nogui',v)             ; % run proccessing steps without GUI
 % ______________________________________________________________________
 %% ==================================================================================
-%% example-3 : noGUI-mode, run hmri-steps 
+%% example-3 : noGUI-mode, run hmri-steps
 % here only the resulting NIFTI-files will be copied to the upper animal-folder for
 % all animals
 %% ===================================================================================
@@ -115,57 +115,93 @@
 % v=struct();
 % v.mpm_configfile   = 'F:\data8_MPM\MPM_agBrandt3\mpm\mpm_config.m'  ; % mpm-configfile
 % v.pstep            = []    ; % indices of preprocessing steps  , use 'all' or use indices such as:  [1:5]; see mpm('steps');
-% v.hstep            = 6     ; % indices of hmri-processing steps, use 'all' or use indices such as:  [1:5]; see mpm('steps');
+% v.hstep            = 6     ; % indices of hmri-processing steps, use 'all' or use indices such as:  [1:6]; see mpm('steps');
 % v.mdirs            = 'all' ; % all animals from 'dat'-folder are used
 % mpm('nogui',v)  ; % run proccessing steps without GUI
 %% ===============================================
 %% example-4 : noGUI-mode: obtain HTML with preorientations
 % Html-files will be created in the checksfolfer
-% 
+%
 % mpm('orientSS','mpm_configfile',fullfile(pwd,'mpm','mpm_config.m')); %make HTMLfile: orientation T1/MT/PD-space to standard-space
 % mpm('orientT2w','mpm_configfile',fullfile(pwd,'mpm','mpm_config.m'));  %make HTMLfile: orientation t2w-space to T1/MT/PD-space
-   
-
+% 
+% 
+%% ================================================================
+%%  example-5 :using GUI, running all tasks for all animals
+%% =================================================================
+%     clear ; cf;
+%     studyDir='F:\data8_MPM\2024_Cuprizone_Exvivo_MPM_DTI'          ; % % please set antx-study-path
+%     ant;
+%     antcb('load', fullfile(studyDir,'proj.m'));
+%     antcb('selectdirs','all')                                      ; % % or select first two animals antcb('selectdirs',[1 2]) ; 
+%     % antcb('selectdirs',[1]) ; drawnow;
+%     
+%     v=struct();
+%     v.mpm_configfile   =fullfile(studyDir,'mpm', 'mpm_config.m' )  ; % % mpm-configfile
+%     v.pstep            = ['all';%'all'%[1 3];[1:5]                 ; % % indices of preprocessing steps  , use 'all' or use indices such as:  [1:5]; see mpm('steps');
+%     v.hstep            = 'all';%'all';%['all'];%[1:7]              ; % % indices of hmri-processing steps, use 'all' or use indices such as:  [1:7]; see mpm('steps');
+%     mpm('gui',v)                                                   ; % % run proccessing steps without GUI
+% 
+%% ========================================================================================
+%%  example-6 :using GUI, running all tasks for all animals, explicitely set mdirs
+%% =========================================================================================
+% 
+%     clear ; cf;
+%     studyDir='F:\data8_MPM\2024_Cuprizone_Exvivo_MPM_DTI'
+%     ant;
+%     antcb('load', fullfile(studyDir,'proj.m'));
+%     mdirs=antcb('getallsubjects');
+% 
+%     v=struct();
+%     v.mpm_configfile   =fullfile(studyDir,'mpm', 'mpm_config.m' ) ; % % mpm-configfile
+%     v.pstep            = 'all';%'all'%[1 3];[1:5]                 ; % % indices of preprocessing steps  , use 'all' or use indices such as:  [1:5]; see mpm('steps');
+%     v.hstep            = 'all';%['all'];%[1:6]                    ; % indices of hmri-processing steps, use 'all' or use indices such as:  [1:7]; see mpm('steps');
+%     v.mdirs            =  mdirs                                   ; % % or mdirs(1:2);  or 'all' ; %  animals from 'dat'-folder are used
+%     mpm('gui',v);                                                 ; % % run proccessing steps without GUI
+% 
+% 
+% 
+% 
 
 
 
 
 % % split 4D-files
 % f_split4Dfiles();
-% 
+%
 % %add HDR-description to final files in standardSpace
 % f_addHDRdescrition();
-% 
+%
 % % multiplay by factor 2000
 % f_multplyFactor();
-% 
+%
 % % run model
 % f_runMRM_mode1();
-% 
+%
 % % normalize PD
 % f_PDnormalize();
 
 
 % % obtain bruker parameters
 % f_obtainBrukerparameter();
-% 
+%
 % % copyANDrename files
 % f_renamefiles();
-% 
+%
 % % register turborare to t1/pd/mt
 % f_registerTurborare();
-% 
+%
 % % register to standardspace
 %  f_regist2SS();
-%  
+%
 % % transform images to standard-space
 % f_transform2SS();
 
 function mpm(varargin)
 
 if nargin>0
-   procCMDprewin(varargin)
-   return
+    procCMDprewin(varargin)
+    return
 end
 
 
@@ -180,17 +216,17 @@ end
 %     'register2SS'       0   'f_regist2SS'               'register turborare to standardspace' ['']
 %     'transform2SS'      0   'f_transform2SS'            'transform images to standard-space'  ['']
 % };
-% 
+%
 % % t1(2:end,2)={0};
 % p.t1=t1;
-% 
+%
 % %  table-PROC2, [ tag  default-selected   callingfile]
 % t2={...
 %     'split4D'        1   'f_split4Dfiles'           'split 4D files to 3D files'    ['']
 %     'addHDR'         1   'f_addHDRdescrition'       'add HDR-info for hMRI-TBX'     ['']
 %     'multiply'       1   'f_multplyFactor'          'scale image by factor'         ['']
 %     'runmodel'       1   ''                         'selected model to run'         ['']
-%     'normalize'      1   'f_PDnormalize'            'normalize image by mask'       [''] 
+%     'normalize'      1   'f_PDnormalize'            'normalize image by mask'       ['']
 % };
 % t2(1:end,2)={0};
 % p.t2=t2;
@@ -225,7 +261,7 @@ makeMenu();
 % which('ant.m')
 
 if nargin>0
-   procCMDpostwin(varargin)
+    procCMDpostwin(varargin)
 end
 
 % ==============================================
@@ -238,7 +274,7 @@ if strcmp(varargin{1},'storegui')
     if isempty(mpm);return; end
     hf=findobj(0,'tag','mpm');
     if isempty(hf);return; end
-
+    
     ps={};
     ht=get(findobj(hf,'style','radio'),'tag');
     if ischar(ht); ht=cellstr(ht); end
@@ -266,7 +302,7 @@ if strcmp(varargin{1},'recreate')
     
     hf=findobj(0,'tag','mpm');
     if isempty(hf);
-       % mpm;
+        % mpm;
         feval('mpm');
     end
     global mpm
@@ -281,11 +317,11 @@ if strcmp(varargin{1},'recreate')
     end
 end
 %% =========[noGUI]======================================
-if strcmp(varargin{1}{1},'nogui')
+if strcmp(varargin{1}{1},'nogui') || strcmp(varargin{1}{1},'gui')
     
-%     cm=varargin{1}
-%     s=cell2struct(cm(2:2:end),cm(1:2:end),2);
-%     
+    %     cm=varargin{1}
+    %     s=cell2struct(cm(2:2:end),cm(1:2:end),2);
+    %
     s=varargin{1}{2};
     s.mode=varargin{1}{1};
     p=getFunctions(); %get functions (t1,t2,hmrimodels)
@@ -295,10 +331,10 @@ if strcmp(varargin{1}{1},'nogui')
     if isfield(s,'hstep')       ==0; s.hstep=[]; end
     
     f_getconfig(s.mpm_configfile); %create global
-%     global mpm
-%     if isempty(mpm)
-%         f_getconfig(s.mpm_configfile);
-%     end
+    %     global mpm
+    %     if isempty(mpm)
+    %         f_getconfig(s.mpm_configfile);
+    %     end
     global mpm
     paSPM=which('spm.m');
     if isempty(paSPM)
@@ -309,12 +345,38 @@ if strcmp(varargin{1}{1},'nogui')
             disp(['...add path of external SPM: ' paSPM]);
         end
     end
- 
-  runsteps(s);
-  
- 
-elseif strcmp(varargin{1}{1},'orientSS') 
-   % mpm('orientSS','mpm_configfile',fullfile(pwd,'mpm','mpm_config.m')); %make HTMLfile: orientation T1/MT/PD-space to standard-space
+    if strcmp(varargin{1}{1},'gui')
+        feval('mpm')
+        %select radios
+        hf=findobj(0,'tag','mpm');
+        if ischar(s.pstep) && strcmp(s.pstep,'all');  s.pstep=1:size(s.t1,1)  ; end
+        if ischar(s.hstep) && strcmp(s.hstep,'all');  s.hstep=1:size(s.t2,1)  ; end
+        
+        for i=1:length(s.pstep)
+            try; set(findobj(hf,'tag',p.t1{s.pstep(i),1}),'value',1); end
+        end
+        for i=1:length(s.hstep)
+            try; set(findobj(hf,'tag',p.t2{s.hstep(i),1}),'value',1); end
+        end
+        
+        if isfield(s,'mdirs') && ~isempty(s.mdirs)
+            s.mode='nogui';
+            runsteps(s);
+            
+        else
+            runsteps
+        end
+        return
+        
+        
+        
+    end
+    
+    runsteps(s);
+    
+    
+elseif strcmp(varargin{1}{1},'orientSS')
+    % mpm('orientSS','mpm_configfile',fullfile(pwd,'mpm','mpm_config.m')); %make HTMLfile: orientation T1/MT/PD-space to standard-space
     %% ===============================================
     v=varargin{1};
     s=cell2struct(v(3:2:end),v(2:2:end),2);
@@ -332,8 +394,8 @@ elseif strcmp(varargin{1}{1},'orientSS')
     
     f_estimPreorient2templateHTML;
     %% ===============================================
-elseif strcmp(varargin{1}{1},'orientT2w') 
-   % mpm('orientT2w','mpm_configfile',fullfile(pwd,'mpm','mpm_config.m'));  %make HTMLfile: orientation t2w-space to T1/MT/PD-space
+elseif strcmp(varargin{1}{1},'orientT2w')
+    % mpm('orientT2w','mpm_configfile',fullfile(pwd,'mpm','mpm_config.m'));  %make HTMLfile: orientation t2w-space to T1/MT/PD-space
     %% ===============================================
     v=varargin{1};
     s=cell2struct(v(3:2:end),v(2:2:end),2);
@@ -349,7 +411,7 @@ elseif strcmp(varargin{1}{1},'orientT2w')
         end
     end
     f_estimPreorientHTML;
-    %% ===============================================  
+    %% ===============================================
     
     
 elseif strcmp(varargin{1}{1},'steps') || strcmp(varargin{1}{1},'funlist')
@@ -362,14 +424,15 @@ elseif strcmp(varargin{1}{1},'steps') || strcmp(varargin{1}{1},'funlist')
     m=[[ num2cell([1:size(p.t1,1)]') p.t1(:,1) p.t1(:,3)  p.t1(:,4)]];
     tit=['[1]. [pstep]: steps of preprocessing'];
     disp(char(plog([],[hm; m],0,tit )));
-    disp('*psteps: vecor of indices such as [1,2,3,4,5],or ''all'' ');
+    disp(['*psteps: vector of indices such as [' regexprep(num2str([1 size(p.t1,1)]),'\s+',':') '], or ''all'' ']);
+
     
     cprintf('*[0 .5 0]',['hsteps'  '\n'] );
     hm={'stepNum' 'stepName' 'function' 'info'};
     m=[[ num2cell([1:size(p.t2,1)]') p.t2(:,1) p.t2(:,3)  p.t2(:,4)]];
     tit=['[2]. [hstep]: steps of hMRI-toolbox'];
     disp(char(plog([],[hm; m],0,tit )));
-    disp('*hsteps: vecor of indices such as [1,2,3,4,5],or ''all'' ');
+    disp(['*hsteps: vector of indices such as [' regexprep(num2str([1 size(p.t2,1)]),'\s+',':') '], or ''all'' ']);
     
     
     cprintf('*[0 .5 0]',['hmrimodels'  '\n'] );
@@ -377,7 +440,7 @@ elseif strcmp(varargin{1}{1},'steps') || strcmp(varargin{1}{1},'funlist')
     disp('*available hmrimodels ');
     
     %% ===============================================
-elseif strcmp(varargin{1}{1},'reload')  
+elseif strcmp(varargin{1}{1},'reload')
     
     global mpm
     m=mpm;
@@ -399,15 +462,15 @@ end
 %% ===============================================
 
 if 0
-  
-%     mpm('mode','nogui','steps',[1], 'mpm_configfile','F:\data8_MPM\MPM_agBrandt3\mpm\mpm_config.m')
+    
+    %     mpm('mode','nogui','steps',[1], 'mpm_configfile','F:\data8_MPM\MPM_agBrandt3\mpm\mpm_config.m')
     
     v=struct();
     v.mpm_configfile='F:\data8_MPM\MPM_agBrandt3\mpm\mpm_config.m';
-%     v.pstep =[1:10];
-%     v.hstep =[1:10];
-
-      v.hstep=4
+    %     v.pstep =[1:10];
+    %     v.hstep =[1:10];
+    
+    v.hstep=4
     v.mdirs ={'F:\data8_MPM\MPM_agBrandt3\dat\20220725AB_MPM_18-9'};
     
     
@@ -430,7 +493,7 @@ t1={...
     'register2PD'       0   'f_registerTurborare'       'register turborare to T1/PD/MT'      ['']
     'register2SS'       0   'f_regist2SS'               'register turborare to standardspace' ['']
     'transform2SS'      0   'f_transform2SS'            'transform images to standard-space'  ['']
-};
+    };
 
 % t1(2:end,2)={0};
 p.t1=t1;
@@ -441,9 +504,10 @@ t2={...
     'addHDR'         1   'f_addHDRdescrition'       'add HDR-info for hMRI-TBX'     ['']
     'multiply'       1   'f_multplyFactor'          'scale image by factor'         ['']
     'runmodel'       1   ''                         'selected model to run'         ['']
-    'normalize'      1   'f_PDnormalize'            'normalize image by mask'       [''] 
-    'copy2animalDir' 1   'f_copyNIFTI2animalDir'    'copy reulting files to animalDir '    [''] 
-};
+    'normalize'      1   'f_PDnormalize'            'normalize image by mask'       ['']
+    'copy2animalDir' 1   'f_copyNIFTI2animalDir'    'copy reulting files to animalDir '    ['']
+    'qa_regPDnorm'   1   'f_QA_registration_PDnormalized'    'registration-QA: make contourplot PDnormalized and AVGT '    ['']
+    };
 t2(1:end,2)={0};
 p.t2=t2;
 
@@ -455,9 +519,9 @@ p.hmrimodels={'f_runMRM_mode1.m'};
 %%   proc POSTwin
 % ===============================================
 function procCMDpostwin(varargin)
-   
 
-    
+
+
 
 
 
@@ -465,7 +529,7 @@ function procCMDpostwin(varargin)
 
 
 % ==============================================
-%%   
+%%
 % ===============================================
 
 
@@ -525,14 +589,23 @@ set(hb,'tooltipstring',['load configuration-file ("mpm_config.m")' char(10)...
     'load "mpm_config.m"  to execute further processing steps ']);
 
 %% ==========[TXT config-file]=====================================
-hb=uicontrol('style','text','backgroundcolor','k','units','norm','foregroundcolor',[0 0 1]);
-set(hb,'string','load config-file','tag','tx_configfile');
+hb=uicontrol('style','pushbutton','backgroundcolor','k','units','norm','foregroundcolor',[0 0 1]);
+set(hb,'string','load config-file','tag','tx_configfile','fontsize',8);
 set(hb,'position',[[0.35077 0.90358 0.65 0.047619]],'foregroundcolor',[0 1 0]);
+set(hb,'callback', @cb_tx_configfile);
 global mpm
 if isempty(mpm)
     set(hb,'string','--config-file not loaded--');
+    set(findobj(0,'tag','mpm'),'name',['mpm [' mfilename '.m]'   ]);
 else
-     set(hb,'string',mpm.mpm_configfile);
+    [ff, studyName]=fileparts(fileparts(fileparts(mpm.mpm_configfile)));
+    configshort=mpm.mpm_configfile(strfind(mpm.mpm_configfile,studyName):end);
+    set(hb,'string',configshort);
+    set(findobj(0,'tag','mpm'),'name',['mpm [' mfilename '.m]:"'  studyName '"'  ]);
+    
+    
+    % set(hb,'string',studyName);
+    %set(hb,'string',mpm.mpm_configfile);
 end
 set(hb,'tooltipstring',['used configuration-file ("mpm_config.m")' char(10)...
     'If you see "--config-file not loaded--"  --> use "load configfile"-button to load a config-file']);
@@ -753,7 +826,16 @@ set(hb,'value',p.t2{strcmp(p.t2(:,1), hb.Tag),2});
 set(hb,'tooltipstring',['copy resulting NIFTI-files from "Results"-dir to upper animal-dir ' char(10)...
     '']);
 
+%==========[QA-registration PDnormalized and AVGR]=====================================
+hb=uicontrol('style','radio','backgroundcolor','w','units','norm');
+set(hb,'string','QA: reg. PDnormalized');
+set(hb,'position',[0.5 0.40 0.4 0.047]);
+% set(hb,'callback',{@proc2,'split4D;'})
+set(hb,'tag','qa_regPDnorm');
+set(hb,'value',p.t2{strcmp(p.t2(:,1), hb.Tag),2});
 
+set(hb,'tooltipstring',['QA: check registration, overlay PDnormalized and AVGT :  ' char(10)...
+    'produces a HTMLfile']);
 %% ==========[Help model-button]=====================================
 hb=uicontrol('style','pushbutton','backgroundcolor','w','units','norm');
 set(hb,'string','info');
@@ -771,7 +853,7 @@ set(hb,'tooltipstring',['get hMRI-model info  ' char(10)...
 %% ==========[RUN]=====================================
 hb=uicontrol('style','pushbutton','backgroundcolor','w','units','norm');
 set(hb,'string','RUN');
-set(hb,'position',[[0.51699 0.356 0.10714 0.047619]]);
+set(hb,'position',[0.49325 0.24648 0.10714 0.047619]);
 set(hb,'callback',@run);
 
 set(hb,'tooltipstring',['Execute all selected steps  ' char(10)...
@@ -779,7 +861,7 @@ set(hb,'tooltipstring',['Execute all selected steps  ' char(10)...
 
 %% ==========[TXT status]=====================================
 hb=uicontrol('style','text','units','norm','foregroundcolor',[0 0 1]);
-set(hb,'position',[[0.62517 0.362 0.5 0.03]]);
+set(hb,'position',[[0.62517 0.24648 0.5 0.03]]);
 set(hb,'HorizontalAlignment','left');
 set(hb,'string','status: idle','tag','tx_status','foregroundcolor',[0 0 1],'backgroundcolor',repmat(1,[1 3]) );
 
@@ -836,20 +918,50 @@ set(gcf,'userdata',p);
 
 function makeMenu()
 
- f = uimenu('Label',repmat(' ',[1 50]));
+f = uimenu('Label',repmat(' ',[1 20]));
 f = uimenu('Label','Preproc');
-    uimenu(f,'Label','estimate pre-orientation t2w to T1/PD/MT','callback',{@cb_menu,'estimPreorient'});
-    uimenu(f,'Label','estimate pre-orientation T1/PD/MT to template(AVGT.nii)','callback',{@cb_menu,'estimPreorient2Template'});
-    
-    uimenu(f,'Label','<html><font color="blue">estimate pre-orientation t2w to T1/PD/MT .              ..use HTML-version'  ,'callback',{@cb_menu,'estimPreorientHTML'},'separator','on');
-    uimenu(f,'Label','<html><font color="blue">estimate pre-orientation T1/PD/MT to template(AVGT.nii) ..use HTML-version'  ,'callback',{@cb_menu,'estimPreorient2TemplateHTML'});
- 
-f = uimenu('Label','Info');
-    uimenu(f,'Label','<html><font color="blue">visit mpm-for-rodents (github)','callback',{@cb_menu,'visit_mpm-for-rodents_github'});
-    uimenu(f,'Label','<html><font color="blue">visit ANTx2 (github)'          ,'callback',{@cb_menu,'visit_antx_github'});
-    uimenu(f,'Label','<html><b>documentations (docs)'                         ,'Callback',{@cb_menu, 'docs'});
+uimenu(f,'Label','get pre-orientation t2w to T1/PD/MT (for [mpm_config.m])','callback',{@cb_menu,'estimPreorient'});
+uimenu(f,'Label','get pre-orientation T1/PD/MT to template(AVGT.nii)','callback',{@cb_menu,'estimPreorient2Template'});
 
-    
+uimenu(f,'Label',...
+    ['<html><font color="blue">get pre-orientation <b>[t2w to T1/PD/MT]</b>' ...
+    ' <font color="black"> (value set in <font color="red">"mpm_config.m") <font color="green"><b>..use HTML-version']  ,...
+    'callback',{@cb_menu,'estimPreorientHTML'},'separator','on');
+uimenu(f,'Label',...
+     ['<html><font color="blue">get pre-orientation <b>[T1/PD/MT to template(AVGT.nii)]</b>' ...
+    ' <font color="black"> (value set in <font color="red">"proj.m") <font color="green"><b>..use HTML-version']  ,...
+     'callback',{@cb_menu,'estimPreorient2TemplateHTML'});
+ 
+% '<html><font color="blue">estimate pre-orientation T1/PD/MT to template(AVGT.nii)  (for [proj.m])..use HTML-version' 
+
+f = uimenu('Label','misc');
+uimenu(f,'Label','show [pstep]/[hstep]','callback',{@cb_menu,'show_ph_steps'});
+uimenu(f,'Label','open script-gui','callback',{@cb_menu,'call_scriptgui'});
+
+f = uimenu('Label','Info');
+uimenu(f,'Label','<html><font color="blue">visit mpm-for-rodents (github)','callback',{@cb_menu,'visit_mpm-for-rodents_github'});
+uimenu(f,'Label','<html><font color="blue">visit ANTx2 (github)'          ,'callback',{@cb_menu,'visit_antx_github'});
+uimenu(f,'Label','<html><b>documentations (docs)'                         ,'Callback',{@cb_menu, 'docs'});
+
+
+function cb_tx_configfile(e,e2)
+%% ===============================================
+
+global mpm
+w=mpm;
+try; w=rmfield(w,{'niftis'}); end
+
+try
+    ls=struct2list2(w,'BBB');
+    cprintf('*[0 .6 0]',[ [repmat('=',[1 70])] '\n']);
+    cprintf('*[0 .6 0]',[ ['  ["mpm"-global variable (parameter)]'] '\n']);
+    disp(char(regexprep(ls,'^BBB.','')));
+    cprintf('*[0 .6 0]',[ [repmat('=',[1 70])] '\n']);
+end
+
+
+%% ===============================================
+
 % ==============================================
 %%   select all (preproc)
 % ===============================================
@@ -859,7 +971,7 @@ u=get(gcf,'userdata');
 hc=findobj(gcf,'tag','selectall_1');
 val=get(hc,'value');
 for i=1:length(u.t1(:,1))
-   set( findobj(gcf,'tag',u.t1{i,1}) ,'value',val);
+    set( findobj(gcf,'tag',u.t1{i,1}) ,'value',val);
 end
 % ==============================================
 %%   select all (postproc)
@@ -870,7 +982,7 @@ u=get(gcf,'userdata');
 hc=findobj(gcf,'tag','selectall_2');
 val=get(hc,'value');
 for i=1:length(u.t2(:,1))
-   set( findobj(gcf,'tag',u.t2{i,1}) ,'value',val);
+    set( findobj(gcf,'tag',u.t2{i,1}) ,'value',val);
 end
 %% ===============================================
 
@@ -888,12 +1000,12 @@ function selectAnimals(e,e2)
 
 % [dirs] = spm_select('FPList',pwd,'dir')
 msg='select animal-directories';
- [t,sts] = spm_select(inf,'dir',msg','', pwd);
- if ~isempty(t)
+[t,sts] = spm_select(inf,'dir',msg','', pwd);
+if ~isempty(t)
     mdirs=cellstr(t);
     set(findobj(gcf,'tag','lb_animaldirs'),'string',mdirs);
- end
- 
+end
+
 %% ===============================================
 function clearAnimals(e,e2)
 set(findobj(gcf,'tag','lb_animaldirs'),'string','');
@@ -911,8 +1023,8 @@ else
     [fi pa]=uigetfile(fullfile(pwd,'*.m'),'load configuration-file["mpm_config.m"]');
 end
 
-if isnumeric(fi); 
-    return 
+if isnumeric(fi);
+    return
 else
     ht=findobj(gcf,'tag','tx_configfile');
     set(ht,'string','..loading..');
@@ -924,16 +1036,20 @@ else
     set(gcf,'userdata',u);
     
     
+    [ff, studyName]=fileparts(fileparts(fileparts(mpm_configfile)));
+    configshort=mpm_configfile(strfind(mpm_configfile,studyName):end);
+    set(findobj(0,'tag','mpm'),'name',['mpm [' mfilename '.m]:"'  studyName '"'  ]);
     
-     set(ht,'string',mpm_configfile);
+    set(ht,'string',configshort);
+    %      set(ht,'string',mpm_configfile);
     drawnow; pause(0.3)
     
     %set SPM-path if not available
     if isempty(which('spm.m'))
         global mpm
-       if exist(mpm.SPM_path)==7
-        addpath(mpm.SPM_path);
-       end
+        if exist(mpm.SPM_path)==7
+            addpath(mpm.SPM_path);
+        end
     end
 end
 
@@ -1030,7 +1146,7 @@ if isfield(u ,'hmrimodel')
     [modelpath modelfunName ext]=fileparts(modelfunT);
     modelfun=[modelfunName ext];
     if isempty(modelpath)
-       modelpath=pwd; 
+        modelpath=pwd;
     end
 end
 ix=strcmp(t2(:,1),'runmodel');
@@ -1073,7 +1189,7 @@ if isempty(funclist);
     return;
 end
 %% ==========[check mdirs]=====================================
- is_mdirsOK=0;
+is_mdirsOK=0;
 if useGUI==1;
     if ~isempty(mdirs)
         is_mdirsOK=1;
@@ -1088,15 +1204,15 @@ else
     mdirsOKvec=zeros(length(mdirs),1);
     for i=1:length(mdirs)
         if exist(mdirs{i})==7
-           mdirsOKvec(i,1)=1; 
+            mdirsOKvec(i,1)=1;
         end
     end
     if all(mdirsOKvec)==1
-       is_mdirsOK=1;
+        is_mdirsOK=1;
     else
-       disp('___The following mdirs where not found: ___');
-       disp(char(mdirs(find(mdirsOKvec==0))));
-       return
+        disp('___The following mdirs where not found: ___');
+        disp(char(mdirs(find(mdirsOKvec==0))));
+        return
     end
 end
 if useGUI==1
@@ -1105,7 +1221,7 @@ if useGUI==1
         return;
     end
 end
-    
+
 %% ==========[GUI set up status]=====================================
 if useGUI==1
     hf=findobj(0,'tag','mpm');
@@ -1118,9 +1234,9 @@ end
 % funclist=t2(:,3);
 % clc
 if useGUI==0
-  if isfield(u,'antx_configfile')  
-      loadconfig(u.antx_configfile);
-  end  
+    if isfield(u,'antx_configfile')
+        loadconfig(u.antx_configfile);
+    end
 end
 
 paWD=pwd;
@@ -1177,29 +1293,29 @@ function cb_menu(e,e2,task)
 
 
 if strcmp(task,'estimPreorient')
-%     f_estimPreorient();
+    %     f_estimPreorient();
     f_estimPreorient([],'sel');
 elseif strcmp(task,'estimPreorient2Template')
-%     f_estimPreorient();
+    %     f_estimPreorient();
     f_estimPreorient2template([],'sel');
-%% =======HTML versions========================================
+    %% =======HTML versions========================================
 elseif strcmp(task,'estimPreorientHTML')
     %f_estimPreorientHTML([],'sel');
     f_estimPreorientHTML;
 elseif strcmp(task,'estimPreorient2TemplateHTML')
-%     f_estimPreorient2templateHTML([],'sel');
+    %     f_estimPreorient2templateHTML([],'sel');
     f_estimPreorient2templateHTML;
-%% ===============================================
-
+    %% ===============================================
     
-elseif strcmp(task,'visit_mpm-for-rodents_github') || strcmp(task,'visit_antx_github'); 
+    
+elseif strcmp(task,'visit_mpm-for-rodents_github') || strcmp(task,'visit_antx_github');
     if strcmp(task,'visit_mpm-for-rodents_github')
         github='https://github.com/ChariteExpMri/mpm_rodent';
     elseif strcmp(task,'visit_antx_github')
         github='https://github.com/ChariteExpMri/antx2';
     end
     
-     if ismac
+    if ismac
         system(['open ' github]);
     elseif isunix
         % system(['xdg-open ' github]);
@@ -1214,10 +1330,21 @@ elseif strcmp(task,'visit_mpm-for-rodents_github') || strcmp(task,'visit_antx_gi
         
     elseif ispc
         %system(['start ' github]);
-        web(github,'-browser'); 
-     end
-elseif strcmp(task,'docs')   
+        web(github,'-browser');
+    end
+elseif strcmp(task,'docs')
     explorer(fullfile(fileparts(which('mpm.m')),'docs'));
+elseif strcmp(task,'call_scriptgui')
+    %% ===============================================
+    figtitle='scripts: MPM';
+    close(findobj(0,'name',figtitle));
+    pa_scripts=fullfile(fileparts(which('mpm.m')),'scripts');
+    k=dir(fullfile(pa_scripts,'*.m')); scripts={k(:).name}';
+    scripts_gui([],'figpos',[.3 .2 .4 .4], 'pos',[0 0 1 1],'name',figtitle,'closefig',1,'scripts',scripts);
+    
+    %% ===============================================
+elseif strcmp(task,'show_ph_steps')
+    mpm('steps');
 end
 
 

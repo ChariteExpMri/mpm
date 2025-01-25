@@ -36,8 +36,9 @@
 % add option to copy resulting NIFTI-files to upper animal-directory
 % 
 % #ba 23 Jan 2025 (10:33:20)
-% [f_obtainBrukerparameter.m]  --> fixed readout bug  
-% 
+% [f_obtainBrukerparameter.m]  --> fixed readout bug 
+% #ba 25 Jan 2025 (22:42:47)
+% added QA: registration of PDnormalized to standardspace, other small changes 
 % 
 % 
 

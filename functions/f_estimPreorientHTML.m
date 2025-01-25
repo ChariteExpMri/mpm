@@ -164,12 +164,16 @@ disp(['HTMLfile:' htmlfile]);
 
 
 %% ===============================================
-col=[0.4941    0.4941    0.4941];
+% col=[0.4941    0.4941    0.4941];
+col=[1 0 1];
 colstr=[ '[' num2str(col) ']'];
 cprintf('*[0 .5 0]',[ 'please inspect HTML-file in "checks"-folder'  '\n'] );
 
-cprintf([colstr],[ 'If needed, please modify your [mpm_config.m]-file'  '\n'] );
-cprintf([colstr],[ 'Please insert the three values of "ROTATONS" (as string) into "mpm.t2w_preorient" in the file  [mpm_config.m]'    '\n'] );
+cprintf(['*' colstr],[ 'If needed, please modify the'] );
+cprintf(['*0.6353    0.0784    0.1843'],[' [mpm_config.m]' ] );
+cprintf(['*' colstr],['-file'  '\n'] );
+
+cprintf(['*' colstr],[ '..i.e. set the three rotations (as string) in "mpm.t2w_preorient" in the file  [mpm_config.m]'    '\n'] );
 disp([ ' ... don''t forget to reload the mpm-configfile ..e.g. via: mpm(''reload'')'    ] );
 
 %% ===============================================

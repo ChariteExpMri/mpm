@@ -1,13 +1,16 @@
 ## **mpm Modifications**
- &#x1F535; last modification:   23 Jan 2025 (10:33:20)  
+ &#x1F535; last modification:   25 Jan 2025 (22:42:47)  
     
  &#8658; Respository: <a href= "https://github.com/ChariteExpMri/mpm">https://github.com/ChariteExpMri/mpm</a>  
     
     
     
 ------------------  
+  &#x1F535;   <ins>**25 Jan 2025 (22:42:47)**</ins>  
+  added QA: registration of PDnormalized to standardspace, other small changes   
+<!---->
   &#x1F535;   <ins>**23 Jan 2025 (10:33:20)**</ins>  
-  __[f_obtainBrukerparameter.m]__  --> fixed readout bug    
+  __[f_obtainBrukerparameter.m]__  --> fixed readout bug   
 <!---->
   &#x1F535;   <ins>**11 Jan 2024 (13:01:32)**</ins>  
   add option to copy resulting NIFTI-files to upper animal-directory  
